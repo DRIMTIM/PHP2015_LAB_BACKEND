@@ -1,0 +1,2 @@
+RewriteEngine On    # Turn on the rewriting engine
+RewriteRule    ^([A-Za-z0-9-]*)\/?([A-Za-z0-9-]*)\/?$    app.php?rt=$1/$2    [NC,L]    # Handle requests for "pet-care"
