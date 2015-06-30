@@ -66,33 +66,15 @@
 						}
 					}else{ ?>
 
-					<td><h3>No hay Categorias de Ofertas cargadas en el sistema</h3></td>
+						<tr><td><h3>No hay Categorias de Ofertas cargadas en el sistema</h3></td></tr>
 
 					<?php
 				}?>
 
 			</tbody>
 
-
 		</table>
 		<script>
-			$(function () {
-				$('#hover, #striped, #condensed').click(function () {
-					var classes = 'table';
-
-					if ($('#hover').prop('checked')) {
-						classes += ' table-hover';
-					}
-					if ($('#condensed').prop('checked')) {
-						classes += ' table-condensed';
-					}
-					$('#table-style').bootstrapTable('destroy')
-					.bootstrapTable({
-						classes: classes,
-						striped: $('#striped').prop('checked')
-					});
-				});
-			});
 
 			function rowStyle(row, index) {
 				var classes = ['active', 'success', 'info', 'warning', 'danger'];
