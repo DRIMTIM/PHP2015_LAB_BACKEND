@@ -6,6 +6,7 @@
 	<title>Admin - Dashboard</title>
 
 	<link href="<?php echo __ROOT_CSS . 'bootstrap.min.css'?>" rel="stylesheet">
+	<link href="<?php echo __ROOT_CSS . 'bootstrap-table.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'datepicker3.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'styles.css'?>" rel="stylesheet">
 
@@ -53,7 +54,7 @@
 		</form>
 		<ul class="nav menu">
 			<li class="active"><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-			<li><a href="widgets.html"><span class="glyphicon glyphicon-tags"></span> Categorias</a></li>
+			<li><a href="<?php echo __ROOT . "/category"?>"><span class="glyphicon glyphicon-tags"></span> Categorias</a></li>
 			<li><a href="charts.html"><span class="glyphicon glyphicon-shopping-cart"></span> Ofertas</a></li>
 			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Productos</a></li>
 			<li><a href="forms.html"><span class="glyphicon glyphicon-stats"></span> Estadisticas</a></li>
@@ -147,6 +148,7 @@
 	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
 
 	<script>
 		$('#calendar').datepicker({

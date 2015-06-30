@@ -42,28 +42,26 @@ $registry->template = new template ( $registry );
  */
 define('__AJAX_URL_PATTERN', "ajax");
 define('__LOGIN_URL', "login");
-define('__BACKEND_URL', "home");
+define('__BACKEND_URL', "backend");
 
 $ajax = __AJAX_URL_PATTERN;
 $login = __LOGIN_URL;
-$__DEFAULT = $login;
+$__DEFAULT = __BACKEND_URL;
 $ambito = $__DEFAULT;
 
 /**
  * Obtengo la url del request
  */
 $url = $_SERVER['REQUEST_URI'];
-
-$aux = stripos($url, __BACKEND_URL);
-echo $aux;
+	
 /**
  * Evaluo si es un request de ajax o no
  */
-if(stripos($url, __BACKEND_URL)){
+if(stripos($url, __LOGIN_URL)){
 		/**
 	 * inicio la carga del template en caso de que no sea un request ajax
 	 */
-	$ambito = "backend";
+	$ambito = __LOGIN_URL;
 
 }else if(stripos($url, __AJAX_URL_PATTERN)){
 	/**
