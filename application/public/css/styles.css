@@ -538,10 +538,11 @@ a.bg-danger:hover {
 	float: right;
 	list-style: none;
 	padding: 0;
+	color: #fff;	
 }
 
 .user-menu a {
-	color: #313131;
+	color: #fff;
 }
 
 .user-menu a:hover, .user-menu a:focus {

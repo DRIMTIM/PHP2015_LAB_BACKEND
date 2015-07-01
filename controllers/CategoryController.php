@@ -15,6 +15,18 @@ Class CategoryController Extends baseController {
 	    $this->registry->template->show('category/index');
 	}
 
+	public function altaCategoria(){
+		$this->categoriasModel->guardar();
+		$this->index();
+	}
+
+	public function borrarCategoria($params){
+
+		echo $_GET['idCat'];
+		$this->categoriasModel->borrar($_GET['idCat']);
+		$this->index();
+	}	
+
 }
 
 ?>
