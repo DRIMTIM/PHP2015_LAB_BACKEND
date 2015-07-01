@@ -10,9 +10,12 @@ class OfferModel extends AbstractModel{
     protected $moneda = NULL;
     protected $activa = NULL;
 	
-    public function onConstruct(){
-    	$this->table_name = "OFERTAS";
+    public function __construct($registry) {
+        parent::__construct(registry);
+        $this->table_name = "OFERTAS";
     }
+
+    public function onConstruct(){ }
     
 }
 ?>
