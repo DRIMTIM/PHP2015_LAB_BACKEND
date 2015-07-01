@@ -72,6 +72,6 @@ if(stripos($url, __LOGIN_URL)){
 
 define('__AMBITO', $ambito);
 
-include __AMBITO . '.php';
+include 'backend.php';
 
 ?>

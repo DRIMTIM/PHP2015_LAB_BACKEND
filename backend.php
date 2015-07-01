@@ -5,6 +5,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin - Dashboard</title>
 
+	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'chart-data.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
+	
 	<link href="<?php echo __ROOT_CSS . 'bootstrap.min.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'bootstrap-table.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'datepicker3.css'?>" rel="stylesheet">
@@ -55,7 +64,7 @@
 		<ul class="nav menu">
 			<li class="active"><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
 			<li><a href="<?php echo __ROOT . "/category"?>"><span class="glyphicon glyphicon-tags"></span> Categorias</a></li>
-			<li><a href="charts.html"><span class="glyphicon glyphicon-shopping-cart"></span> Ofertas</a></li>
+			<li><a href="<?php echo __ROOT . "/offer/alta"?>"><span class="glyphicon glyphicon-shopping-cart"></span> Ofertas</a></li>
 			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Productos</a></li>
 			<li><a href="forms.html"><span class="glyphicon glyphicon-stats"></span> Estadisticas</a></li>
 			<li><a href="panels.html"><span class="glyphicon glyphicon-cog"></span> Configuracion	</a></li>
@@ -141,14 +150,7 @@
 		</div><!--/.row-->
 	</div>	<!--/.main-->
 
-	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
+
 
 	<script>
 		$('#calendar').datepicker({
