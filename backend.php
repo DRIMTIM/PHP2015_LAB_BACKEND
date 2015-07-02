@@ -4,15 +4,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin - Dashboard</title>
-
-	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
 	
 	<link href="<?php echo __ROOT_CSS . 'bootstrap.min.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'bootstrap-table.css'?>" rel="stylesheet">
@@ -150,7 +141,16 @@
 		</div><!--/.row-->
 	</div>	<!--/.main-->
 
-
+	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'chart-data.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
 
 	<script>
 		$('#calendar').datepicker({

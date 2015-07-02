@@ -15,15 +15,14 @@ class CategoryModel extends AbstractModel{
 		return $this->registry->db->insert($this->table_name, $data);
 	}  
 
-	public function obtenerCategoria($idCat){
+	public function obtener($idCat){
 		$categoria = $this->registry->db->where("id", $idCat)->get($this->table_name);
 		return $categoria[0];
 	}
 	
-	public function editarCategoria($idCat){
+	public function editar($idCat){
 		$this->fromArray($_POST);
 		$data = $this->toArray();
-
 		return $this->registry->db->where("id", $idCat)->update($this->table_name, $data);
 	}	 
 

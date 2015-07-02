@@ -9,28 +9,35 @@
 				<fieldset>
 					<!-- Nombre -->
 					<div class="form-group">
-						<label class="col-md-3 control-label" for="name">Nombre:</label>
+						<label class="col-md-3 control-label" for="nombre">Nombre:</label>
 						<div class="col-md-9">
-							<input id="name" name="nombre" type="text" placeholder="..." 
-							class="form-control">
+							<input id="nombre" name="nombre" type="text" placeholder="..." 
+							value="<?php echo $categoria["nombre"];?>" class="form-control">
 						</div>
 					</div>
 
 					<!-- Descripcion -->
 					<div class="form-group">
-						<label class="col-md-3 control-label" for="message">Descricpion:</label>
+						<label class="col-md-3 control-label" for="descripcion">Descricpion:</label>
 						<div class="col-md-9">
 							<textarea class="form-control" id="desc" name="descripcion" 
-							placeholder="..." rows="5"></textarea>
+							placeholder="..." rows="5"><?php echo $categoria["descripcion"];?></textarea>
 						</div>
 					</div>
-
+					
+					<!-- Editar o Guardar -->
+					<div class="checkbox">
+						<label class="col-md-3 control-label">
+						<input id="checkEdit" type="checkbox"><b>Editar / Guardar</b></label>
+					</div>
 					<!-- Form actions -->
-					<div class="form-group">
-						<div class="col-md-12 widget-right">
-							<button type="submit" class="btn btn-primary btn-md pull-right">Guardar</button>
-						</div>
-					</div>
+					<div class="btn-group pull-right">
+						<button id="submitCat" type="submit" class="btn btn-primary btn-md">Guardar</button>
+						<button id="editCat" type="button" class="btn btn-primary btn-md" 
+						disabled="disabled">Editar</button>
+						<button id="resetCat" type="button" 
+						class="btn btn-primary btn-md">Cancelar</button>
+					</div>			
 				</fieldset>
 			</form>
 		</div>
@@ -60,20 +67,22 @@
 						foreach ($categorias as $categoria){ 
 							?>
 							<tr>
-								<td>
-							        <a class="btn" href="#" id="<?php echo $categoria["id"];?>">
-							          <span class="glyphicon glyphicon-edit"></span>
-							        </a>
-       							</td>
-								<td><?php echo $categoria["nombre"];?></td>
-								<td><?php echo $categoria["descripcion"];?></td>
-								<td>
-									<a name="<?php echo "cat" . $categoria["id"];?>" class="btn" 
-										href="<?php echo __ROOT . "/category/borrarCategoria?idCat="
-															. $categoria["id"]; ?>">
-          								<span class="glyphicon glyphicon-trash"></span> 
-       								</a>
-       							</td>
+							<td>
+								<a class="cat" 
+									href="<?php echo __ROOT . "/category/getCategoria?idCat="
+									. $categoria["id"]; ?>" >
+									<span class="glyphicon glyphicon-edit"></span>
+								</a>
+							</td>
+							<td><?php echo $categoria["nombre"];?></td>
+							<td><?php echo $categoria["descripcion"];?></td>
+							<td>
+								<a name="<?php echo "del" . $categoria["id"];?>" class="btn" 
+									href="<?php echo __ROOT . "/category/borrarCategoria?idCat="
+									. $categoria["id"]; ?>">
+									<span class="glyphicon glyphicon-trash"></span> 
+								</a>
+							</td>
 							</tr>
 							<?php
 						}
