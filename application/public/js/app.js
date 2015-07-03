@@ -19,7 +19,7 @@ $('#resetCat').click(function(){
 
 function resetCatForm(){
 	$('#nombre').val('');
-	$('#desc').val(null);
+	$('#desc').val('');
 	$('#idCat').hide('slow');
 }
 

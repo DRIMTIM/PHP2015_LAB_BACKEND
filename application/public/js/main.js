@@ -147,8 +147,6 @@ $('#editCat').click(function(){
 	var desc = $('#desc').val();
 	updateCategoryById(id, nom, desc);
 
-	return false;
-
 });
 
 $('#submitCat').click(function(){
