@@ -22,7 +22,6 @@ class CategoryModel extends AbstractModel{
 	}
 	
 	public function editar($idCat){
-		echo "entro";
 		$this->fromArray($_POST);
 		$data = $this->toArray();
 		unset($data['id']);

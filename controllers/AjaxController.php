@@ -54,3 +54,5 @@ Class AjaxController extends BaseController {
 	}	
 	
 }
+
+?>
