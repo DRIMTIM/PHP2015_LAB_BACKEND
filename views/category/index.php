@@ -7,6 +7,16 @@
 			<form class="form-horizontal" action="<?php echo __ROOT . "/category/altaCategoria"?>" 
 																			method="POST">
 				<fieldset>
+
+					<!-- id - readonly -->
+					<div id="idCat" class="form-group" hidden='hidden'>
+						<label class="col-md-3 control-label" for="nombre">ID:</label>
+						<div class="col-md-3">
+							<input id="id" name="id" type="text" readonly="readonly" 
+							value="<?php echo $categoria["id"];?>" class="form-control">
+						</div>
+					</div>
+
 					<!-- Nombre -->
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="nombre">Nombre:</label>
@@ -25,11 +35,6 @@
 						</div>
 					</div>
 					
-					<!-- Editar o Guardar -->
-					<div class="checkbox">
-						<label class="col-md-3 control-label">
-						<input id="checkEdit" type="checkbox"><b>Editar / Guardar</b></label>
-					</div>
 					<!-- Form actions -->
 					<div class="btn-group pull-right">
 						<button id="submitCat" type="submit" class="btn btn-primary btn-md">Guardar</button>
@@ -68,18 +73,16 @@
 							?>
 							<tr>
 							<td>
-								<a class="cat" 
-									href="<?php echo __ROOT . "/category/getCategoria?idCat="
-									. $categoria["id"]; ?>" >
+								<a href="#" onclick="findCategoryById
+												(<?php echo $categoria["id"];?>)">
 									<span class="glyphicon glyphicon-edit"></span>
 								</a>
 							</td>
 							<td><?php echo $categoria["nombre"];?></td>
 							<td><?php echo $categoria["descripcion"];?></td>
 							<td>
-								<a name="<?php echo "del" . $categoria["id"];?>" class="btn" 
-									href="<?php echo __ROOT . "/category/borrarCategoria?idCat="
-									. $categoria["id"]; ?>">
+								<a href="#" onclick="deleteCategoryById
+												(<?php echo $categoria["id"];?>)">
 									<span class="glyphicon glyphicon-trash"></span> 
 								</a>
 							</td>
@@ -107,7 +110,7 @@
 					};
 				}
 				return {};
-			}
+			}			
 		</script>
 	</div>
 </div>

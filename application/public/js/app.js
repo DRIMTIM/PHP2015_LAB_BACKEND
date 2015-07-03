@@ -14,14 +14,16 @@ $('#resetCat').click(function(){
 
 	$('#nombre').val('');
 	$('#desc').html(null);
+	$('#idCat').hide();
+	enableCatEdit()
 	return false;
 
 });
 
-// Editar o Guardar por checkbox
-$('#checkEdit').click(function(){
+// Editar o Guardar
+function enableCatEdit(){
 
-	if($('#checkEdit').prop('checked')){
+	if($('#editCat').prop('disabled')){
 
 		$('#editCat').removeAttr('disabled');		
 		$('#submitCat').attr('disabled', 'disabled');
@@ -33,4 +35,4 @@ $('#checkEdit').click(function(){
 
 	}
 
-});
+}

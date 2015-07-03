@@ -12,10 +12,12 @@ class CategoryModel extends AbstractModel{
 	public function guardar(){
 		$this->fromArray($_POST);
 		$data = $this->toArray();
+		header("Location: 'http://localhost/BACKEND/views/category/index'");
 		return $this->registry->db->insert($this->table_name, $data);
 	}  
 
 	public function obtener($idCat){
+		
 		$categoria = $this->registry->db->where("id", $idCat)->get($this->table_name);
 		return $categoria[0];
 	}

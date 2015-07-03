@@ -139,16 +139,18 @@
 			?>
 		
 		</div><!--/.row-->
+
 	</div>	<!--/.main-->
 
 	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
+	    <!-- bootbox code -->
+    <script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>	
 	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart-data.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
 

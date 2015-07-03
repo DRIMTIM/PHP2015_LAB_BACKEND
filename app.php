@@ -57,21 +57,15 @@ $url = $_SERVER['REQUEST_URI'];
 /**
  * Evaluo si es un request de ajax o no
  */
-if(stripos($url, __LOGIN_URL)){
-		/**
-	 * inicio la carga del template en caso de que no sea un request ajax
-	 */
-	$ambito = __LOGIN_URL;
-
-}else if(stripos($url, __AJAX_URL_PATTERN)){
+if(stripos($url, __AJAX_URL_PATTERN)){
 	/**
 	 * Inicio la carga de la respuesta del request ajax
 	 */
-	$ambito = __AJAX_URL_PATTERN;
+	$ambito = "ajaxHandler";
 }
 
 define('__AMBITO', $ambito);
 
-include 'backend.php';
+include __AMBITO . '.php';
 
 ?>
