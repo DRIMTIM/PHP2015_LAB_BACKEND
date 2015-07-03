@@ -4,15 +4,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin - Dashboard</title>
-
-	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
 	
 	<link href="<?php echo __ROOT_CSS . 'bootstrap.min.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'bootstrap-table.css'?>" rel="stylesheet">
@@ -27,7 +18,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-fixed-top" role="navigation">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
@@ -37,16 +28,16 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#">
-					<img id="logoHome" src="<?php echo __ROOT_IMG . 'logotipoMin.png'?>" alt="Bienvenido!!">
+					<a class="navbar-brand" href="#"><span>DRIM</span>TIM</a>
 				</a>
 				<ul class="user-menu">
 					<li class="dropdown pull-right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user">
 						</span> User <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span> Cuenta</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Configuracion</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -148,9 +139,20 @@
 			?>
 		
 		</div><!--/.row-->
+
 	</div>	<!--/.main-->
 
-
+	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
+	    <!-- bootbox code -->
+    <script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>	
+	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
 
 	<script>
 		$('#calendar').datepicker({

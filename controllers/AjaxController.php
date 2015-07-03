@@ -3,9 +3,11 @@
 Class AjaxController extends BaseController {
 
 	private $ofertasTemporalesModel = NULL;
+	private $categoriasModel = NULL;
 	
 	public function onConstruct(){
 		$this->ofertasTemporalesModel = new TemporalOfferModel($this->registry);
+		$this->categoriasModel = new CategoryModel($this->registry);
 	}
 	
 	public function index() {
@@ -22,5 +24,29 @@ Class AjaxController extends BaseController {
 		$this->registry->template->ofertasTemporales = $this->ofertasTemporalesModel->getOfertasDelDia();
 		$this->registry->template->show('product/ofertasTemporales');
 	}
+
+	//*************************************************************//
+	// Response AJAX para las Categorias 						   //
+	//*************************************************************//
+	public function getCategoria(){
+
+		$categoria = $this->categoriasModel->obtener($_GET['idCat']);
+		$this->registry->template->categoria = $categoria;
+		echo json_encode($categoria);
+
+	}
+
+	public function getCategorias(){
+
+		$categorias = $this->categoriasModel->getAll();
+		$this->registry->template->categorias = $categorias;
+		echo json_encode($categorias);
+
+	}		
+
+	public function borrarCategoria(){
+		$this->categoriasModel->borrar($_GET['idCat']);
+	    $this->registry->template->categoria = $this->categoriasModel->getAll();	
+	}	
 	
 }
