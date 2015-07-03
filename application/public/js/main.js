@@ -47,19 +47,19 @@ function findAllCategories() {
 
 }
 
-// Cargamos la Categoria luedo de success
+// Cargamos la Categoria luego de success
 function cargarCategoria(data){
 	$('#nombre').val(data['nombre']);
-	$('#desc').html(data['descripcion']);
+	$('#desc').val(data['descripcion']);
 	enableCatEdit();
-	$('#idCat').show();
+	$('#idCat').show('slow');
 	$('#id').val(data['id']);
 }
 
 
 function deleteCategoryById(id){	
 
-	bootbox.confirm("Estas seguro que quiere eliminar la Categoria?", function(result) {
+	bootbox.confirm("<b>Estas seguro que quiere eliminar la Categoria?<b>", function(result){
 		if(result){
 			console.log('deleteCategoryById: ' + id);
 			$.ajax({
@@ -68,6 +68,25 @@ function deleteCategoryById(id){
 				data: 'idCat=' + id,
 				success: function(data){
 					findAllCategories();
+				}				
+			});
+		}
+	});	
+}
+
+function updateCategoryById(id, nom, desc){	
+
+	bootbox.confirm("<b>Estas seguro que quiere editar la Categoria?</b>", function(result) {
+		if(result){
+			console.log('updateCategoryById: ' + id);
+			$.ajax({
+				type: 'POST',		
+				url: ajaxURL + '/' + 'editarCategoria',
+				data: {id:id, nombre:nom, descripcion:desc},
+				success: function(data){
+					findAllCategories();
+					resetCatForm();
+					enableCatSave();
 				}				
 			});
 		}
@@ -120,5 +139,31 @@ function renderTable(data){
 
 	}
 }
+
+$('#editCat').click(function(){
+
+	var id = $('#id').val();
+	var nom = $('#nombre').val();
+	var desc = $('#desc').val();
+	updateCategoryById(id, nom, desc);
+
+	return false;
+
+});
+
+$('#submitCat').click(function(){
+
+	var id = $('#id').val();
+	var nom = $('#nombre').val();
+	var desc = $('#desc').val();
+
+	if(nom == "" || nom == " " || desc == "" || desc == " "){
+
+		bootbox.alert("<b>Hay campos vacios,por favor, revise el formulario.</b>");
+		return false;
+	}else{
+		return true;
+	}
+});
 
 

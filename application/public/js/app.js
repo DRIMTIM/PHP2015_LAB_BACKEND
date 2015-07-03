@@ -11,14 +11,17 @@ aplicacion cliente.
 
 // Limpiar formulario de Categorias
 $('#resetCat').click(function(){
-
-	$('#nombre').val('');
-	$('#desc').html(null);
-	$('#idCat').hide();
-	enableCatEdit()
+	resetCatForm();
+	$('#submitCat').removeAttr('disabled');		
+	$('#editCat').attr('disabled', 'disabled');
 	return false;
-
 });
+
+function resetCatForm(){
+	$('#nombre').val('');
+	$('#desc').val(null);
+	$('#idCat').hide('slow');
+}
 
 // Editar o Guardar
 function enableCatEdit(){
@@ -28,7 +31,13 @@ function enableCatEdit(){
 		$('#editCat').removeAttr('disabled');		
 		$('#submitCat').attr('disabled', 'disabled');
 
-	}else{
+	}
+
+}
+
+function enableCatSave(){
+
+	if($('#submitCat').prop('disabled')){
 
 		$('#submitCat').removeAttr('disabled');		
 		$('#editCat').attr('disabled', 'disabled');

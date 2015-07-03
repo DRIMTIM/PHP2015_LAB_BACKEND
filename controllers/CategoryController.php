@@ -17,7 +17,6 @@ Class CategoryController Extends baseController {
 	public function altaCategoria(){
 		$this->categoriasModel->guardar();
 		$this->index();
-		header("Location: 'http://localhost/BACKEND/views/category/index'");
 	}
 
 	public function getCategoria(){
@@ -27,7 +26,7 @@ Class CategoryController Extends baseController {
 	}
 
 	public function editarCategoria(){
-		$this->categoriasModel->editar($_GET['idCat']);
+		$this->categoriasModel->editar($_POST['idCat']);
 		$this->index();
 	}	
 

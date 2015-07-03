@@ -12,7 +12,6 @@ class CategoryModel extends AbstractModel{
 	public function guardar(){
 		$this->fromArray($_POST);
 		$data = $this->toArray();
-		header("Location: 'http://localhost/BACKEND/views/category/index'");
 		return $this->registry->db->insert($this->table_name, $data);
 	}  
 
@@ -23,8 +22,10 @@ class CategoryModel extends AbstractModel{
 	}
 	
 	public function editar($idCat){
+		echo "entro";
 		$this->fromArray($_POST);
 		$data = $this->toArray();
+		unset($data['id']);
 		return $this->registry->db->where("id", $idCat)->update($this->table_name, $data);
 	}	 
 

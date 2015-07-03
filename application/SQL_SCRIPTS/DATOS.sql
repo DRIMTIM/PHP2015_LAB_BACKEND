@@ -61,3 +61,7 @@ INSERT INTO CATEGORIAS_OFERTAS (id_categoria, id_oferta) VALUES (5, 7);
 INSERT INTO CATEGORIAS_OFERTAS (id_categoria, id_oferta) VALUES (8, 8);
 INSERT INTO CATEGORIAS_OFERTAS (id_categoria, id_oferta) VALUES (6, 9);
 INSERT INTO CATEGORIAS_OFERTAS (id_categoria, id_oferta) VALUES (6, 10);
+
+/* ADMINISTRADORES */
+INSERT INTO `ADMINISTRADORES`(`apellido`, `email`, `nick`, `nombre`, `pass`)
+VALUES ("Potter", "pelupotter@gmail.com", "pelupotter", "Pelu", MD5("nachoreol"))
