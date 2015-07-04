@@ -60,8 +60,10 @@ class OfferModel extends AbstractModel{
                 $this->insertarOfertaNormal($this->id_categoria, $data);
                 break;
             case 'temporal':
+                $this->insertarOfertaTemporal($this->id_categoria, $data);
                 break;
             case 'stock':
+                $this->insertarOfertaStock($this->id_categoria, $data);
                 break;
             default:
                 break;
@@ -79,6 +81,9 @@ class OfferModel extends AbstractModel{
         unset($data['stock']);
 
         $id = $this->registry->db->insert($this->table_name, $data);
+        $this->insertCategoriasOfertas($id_categoria, $id);
+        $insertTemporal = array('fecha_inicio' => $this->fecha_inicio, 'fecha_fin' => $this->fecha_fin, 'id' => $id);
+        $id = $this->registry->db->insert($this->table_temporales, $insertTemporal);
 
     }
 
@@ -90,10 +95,20 @@ class OfferModel extends AbstractModel{
 
         $id = $this->registry->db->insert($this->table_name, $data);
         $this->insertCategoriasOfertas($id_categoria, $id);
-        
+
     }
     private function insertarOfertaStock($id_categoria, $data) {
 
+        $this->stock = $data['stock'];
+
+        unset($data['fecha_inicio']);
+        unset($data['fecha_fin']);
+        unset($data['stock']);
+
+        $id = $this->registry->db->insert($this->table_name, $data);
+        $this->insertCategoriasOfertas($id_categoria, $id);
+        $insertStock = array('id' => $id, 'stock' => $this->stock);
+        $this->registry->db->insert($this->table_stock, $insertStock);
     }
 
     private function insertCategoriasOfertas($id_categoria, $id_oferta) {
