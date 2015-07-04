@@ -18,7 +18,7 @@ class AdminController extends baseController {
 		$this->registry->template->show('admin/account');
 	} 
 	
-	public function login(){
+	/*public function login(){
 
 		$email = $_POST["email"];
 		$password = $_POST["password"];
@@ -33,7 +33,7 @@ class AdminController extends baseController {
 			return;
 		}
 		$this->registry->template->show('index');
-	}
+	}*/
 
 	public function getAdmin($email){
 		$admin = $this->adminModel->obtener($email);
@@ -47,7 +47,7 @@ class AdminController extends baseController {
 		$this->registry->template->showOther('index');
 	}
 	
-	public function modificarDatos(){
+	/*public function modificarDatos(){
 			
 		if($modificarPassword !== "true"){
 			$_POST["password"] = $this->admin["password"];
@@ -55,7 +55,7 @@ class AdminController extends baseController {
 		$this->adminModel->updateadmin($this->admin["id"]);
 		$_SESSION[__ADMIN] = $this->adminModel->obteneradmin($this->admin["nick"]);
 		$this->index();
-	}	
+	}	*/
 	
 	public function bajaCuenta($idAdmin){
 	

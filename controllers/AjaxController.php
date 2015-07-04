@@ -9,6 +9,7 @@ Class AjaxController extends BaseController {
 	public function onConstruct(){
 		$this->ofertasTemporalesModel = new TemporalOfferModel($this->registry);
 		$this->categoriasModel = new CategoryModel($this->registry);
+		$this->adminModel = new AdminModel($this->registry);
 	}
 	
 	public function index() {
@@ -62,8 +63,12 @@ Class AjaxController extends BaseController {
 	public function getAdmin($email){
 
 		$admin = $this->adminModel->obtener($email);
-		echo json_encode($admin[0]);
+		echo json_encode($admin);
 
+	}	
+
+	public function editAdmin($idAdmin){
+		$this->adminModel->editar($_POST['id']);
 	}	
 	
 }

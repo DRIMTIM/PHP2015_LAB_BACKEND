@@ -13,6 +13,11 @@ favor.
 // Url raiz para las llamadas AJAX
 var ajaxURL = "ajax";
 
+
+/**************************************/
+/*          Categorias                */
+/**************************************/
+
 // Buscar Categoria por id
 function findCategoryById(id) {
 	console.log('findCategoryById: ' + id);
@@ -41,7 +46,7 @@ function findAllCategories() {
 			var list = data == null ? [] : (data instanceof Array ? data : [data]);
 			console.log("Lista de Categorias:" + list.length);
 			console.log(list);
-			renderTable(data);
+			renderCatTable(data);
 		}
 	});
 
@@ -93,7 +98,7 @@ function updateCategoryById(id, nom, desc){
 	});	
 }
 
-function renderTable(data){
+function renderCatTable(data){
 
 	var list = data == null ? [] : (data instanceof Array ? data : [data]);
 	var theader = 
@@ -149,19 +154,51 @@ $('#editCat').click(function(){
 
 });
 
-$('#submitCat').click(function(){
+
+/**************************************/
+/*          Administrador             */
+/**************************************/
+
+function updateAdminById(id, nombre, nick, apellido, password, email){	
+
+	bootbox.confirm("<b>Estas seguro que quiere editar sus datos?</b>", function(result) {
+		if(result){
+			console.log('updateAdminById: ' + id);
+			$.ajax({
+				type: 'POST',		
+				url: ajaxURL + '/' + 'editAdmin',
+				data: {id:id, nombre:nombre, nick:nick, apellido:apellido, pass:password, 
+						email:email},
+				success: function(data){
+					console.log("updateAdminById - Admin");
+					console.log(data);
+					/*loadAdminForm(data);
+					enableEditAdmin();*/
+				}				
+			});
+		}
+	});	
+
+}
+
+function loadAdminForm(data){
+
+	$('#nombre').val(data['nombre']);
+	$('#apellido').val(data['apellido']);
+	$('#email').val(data['email']);
+	$('#nick').val(data['nick']);
+
+}
+
+$('#submitAdmin').click(function(){
 
 	var id = $('#id').val();
-	var nom = $('#nombre').val();
-	var desc = $('#desc').val();
+	var nombre = $('#nombre').val();
+	var apellido = $('#apellido').val();
+	var nick = $('#nick').val();
+	var password = "pelu";
+	var email = $('#email').val();
 
-	if(nom == "" || nom == " " || desc == "" || desc == " "){
+	updateAdminById(id, nombre, nick, apellido, password, email);
 
-		bootbox.alert("<b>Hay campos vacios,por favor, revise el formulario.</b>");
-		return false;
-	}else{
-		return true;
-	}
 });
-
-
