@@ -7,7 +7,10 @@ class AdminController extends baseController {
 	public function onConstruct(){
 		$this->adminModel = new AdminModel($this->registry);
 	}
+
 	public function index() {
+		$admin = $this->getAdmin('pelupotter@gmail.com');
+		$this->registry->template->admin = $admin;
         $this->registry->template->show('admin/index');
 	}
 
@@ -15,7 +18,7 @@ class AdminController extends baseController {
 		$this->registry->template->show('admin/account');
 	} 
 	
-	/*public function login(){
+	public function login(){
 
 		$email = $_POST["email"];
 		$password = $_POST["password"];
@@ -30,21 +33,21 @@ class AdminController extends baseController {
 			return;
 		}
 		$this->registry->template->show('index');
-	}*/
+	}
 
-	/*public function getAdmin($email){
-
+	public function getAdmin($email){
 		$admin = $this->adminModel->obtener($email);
-		return $admin[0];
+		$this->registry->template->admin = $admin;
+		return $admin;
 
-	}*/	
+	}
 	
-	/*public function logout(){
+	public function logout(){
 		session_unset();
 		$this->registry->template->showOther('index');
-	}*/
+	}
 	
-	/*public function modificarDatos(){
+	public function modificarDatos(){
 			
 		if($modificarPassword !== "true"){
 			$_POST["password"] = $this->admin["password"];
@@ -52,14 +55,14 @@ class AdminController extends baseController {
 		$this->adminModel->updateadmin($this->admin["id"]);
 		$_SESSION[__ADMIN] = $this->adminModel->obteneradmin($this->admin["nick"]);
 		$this->index();
-	}*/
+	}	
 	
-	/*public function bajaCuenta($idAdmin){
+	public function bajaCuenta($idAdmin){
 	
 		$this->adminModel->borrar($idAdmin);
 		session_unset();
 		$this->registry->template->showOther('index');
-	}*/
+	}
 	
 }
 ?>

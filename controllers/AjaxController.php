@@ -59,12 +59,12 @@ Class AjaxController extends BaseController {
 	// Response AJAX para Admin 						    	   //
 	//*************************************************************//
 
-	/*public function getAdmin($email){
+	public function getAdmin($email){
 
 		$admin = $this->adminModel->obtener($email);
 		echo json_encode($admin[0]);
 
-	}*/	
+	}	
 	
 }
 

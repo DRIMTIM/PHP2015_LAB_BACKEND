@@ -36,13 +36,15 @@
 					</div>
 					
 					<!-- Form actions -->
-					<div class="btn-group pull-right">
-						<button id="submitCat" type="submit" class="btn btn-primary btn-md">Guardar</button>
-						<button id="editCat" type="button" class="btn btn-primary btn-md" 
-						disabled="disabled">Editar</button>
-						<button id="resetCat" type="button" 
-						class="btn btn-primary btn-md">Cancelar</button>
-					</div>			
+					<div class="panel-footer divider">
+						<div class="btn-group pull-right">
+							<button id="submitCat" type="submit" class="btn btn-primary btn-md">Guardar</button>
+							<button id="editCat" type="button" class="btn btn-primary btn-md" 
+							disabled="disabled">Editar</button>
+							<button id="resetCat" type="button" 
+							class="btn btn-primary btn-md">Cancelar</button>
+						</div>		
+					</div>	
 				</fieldset>
 			</form>
 		</div>
