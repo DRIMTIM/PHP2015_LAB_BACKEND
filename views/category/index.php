@@ -73,7 +73,7 @@
 							?>
 							<tr>
 							<td>
-								<a href="#" onclick="findCategoryById
+								<a style="cursor: pointer" onclick="findCategoryById
 												(<?php echo $categoria["id"];?>)">
 									<span class="glyphicon glyphicon-edit"></span>
 								</a>
@@ -81,7 +81,7 @@
 							<td><?php echo $categoria["nombre"];?></td>
 							<td><?php echo $categoria["descripcion"];?></td>
 							<td>
-								<a href="#" onclick="deleteCategoryById
+								<a style="cursor: pointer" onclick="deleteCategoryById
 												(<?php echo $categoria["id"];?>)">
 									<span class="glyphicon glyphicon-trash"></span> 
 								</a>

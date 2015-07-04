@@ -27,7 +27,7 @@ function findCategoryById(id) {
 			cargarCategoria(data);
 		}
 	});
-
+	
 }
 
 // Buscar todas las Categorias

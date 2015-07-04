@@ -3,6 +3,7 @@
  * Defino el nombre de la variable de usuario en sesión
  */
 define('__USER', '__USER_');
+
 /**
  * * Defino la url root de la app **
  */

@@ -35,7 +35,8 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user">
 						</span> User <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#"><span class="glyphicon glyphicon-user"></span> Cuenta</a></li>
+							<li><a href="<?php echo __ROOT . "/admin"?>">
+								<span class="glyphicon glyphicon-user"></span> Cuenta</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Configuracion</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 						</ul>

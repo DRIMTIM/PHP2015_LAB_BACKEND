@@ -4,6 +4,7 @@ Class AjaxController extends BaseController {
 
 	private $ofertasTemporalesModel = NULL;
 	private $categoriasModel = NULL;
+	private $adminModel = NULL;
 	
 	public function onConstruct(){
 		$this->ofertasTemporalesModel = new TemporalOfferModel($this->registry);
@@ -52,6 +53,18 @@ Class AjaxController extends BaseController {
 		$this->categoriasModel->borrar($_GET['idCat']);
 	    $this->registry->template->categoria = $this->categoriasModel->getAll();	
 	}	
+
+
+	//*************************************************************//
+	// Response AJAX para Admin 						    	   //
+	//*************************************************************//
+
+	/*public function getAdmin($email){
+
+		$admin = $this->adminModel->obtener($email);
+		echo json_encode($admin[0]);
+
+	}*/	
 	
 }
 

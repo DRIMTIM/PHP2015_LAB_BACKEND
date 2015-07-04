@@ -63,5 +63,31 @@ INSERT INTO CATEGORIAS_OFERTAS (id_categoria, id_oferta) VALUES (6, 9);
 INSERT INTO CATEGORIAS_OFERTAS (id_categoria, id_oferta) VALUES (6, 10);
 
 /* ADMINISTRADORES */
-INSERT INTO `ADMINISTRADORES`(`apellido`, `email`, `nick`, `nombre`, `pass`)
-VALUES ("Potter", "pelupotter@gmail.com", "pelupotter", "Pelu", MD5("nachoreol"))
+INSERT INTO ADMINISTRADORES (apellido, email, nick, nombre, pass)
+VALUES ("Potter", "pelupotter@gmail.com", "pelupotter", "Pelu", MD5("nachoreol"));
+
+/* USUARIOS */
+INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac, 
+						timeZone, celular, password, edad) 
+VALUES ("pelupotter","Nacho", "Tejeira", "n.tejeira69@gmail.com", "1986-12-28 00:00:00", "URU", "099953574",
+		MD5("nachorevol"), "28");
+
+INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac, 
+						timeZone, celular, password, edad) 
+VALUES ("pepe","Fabian", "Oabierto", "pelu@gmail.com", "1988-02-12 00:00:00", "URU", "099214578",
+		MD5("pepe"), "23");
+
+INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac, 
+						timeZone, celular, password, edad) 
+VALUES ("popi","Sela", "Lastra", "selalastra@gmail.com", "1990-04-2 00:00:00", "URU", "09741586",
+		MD5("popi"), "32");
+
+INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac, 
+						timeZone, celular, password, edad) 
+VALUES ("sabelo","Alpha", "Chino", "alpachino@gmail.com", "1986-05-03 00:00:00", "URU", "099365685",
+		MD5("popi"), "45");
+
+INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac, 
+						timeZone, celular, password, edad) 
+VALUES ("resorry","Redis", "Culp Ame", "redisculpame@gmail.com", "1975-10-28 00:00:00", "URU", "097744774",
+		MD5("popi"), "55");
