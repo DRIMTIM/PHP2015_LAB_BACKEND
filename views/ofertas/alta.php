@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'bootstrap-filestyle.min.js'?>"></script>
 	<meta charset="UTF-8">
 	<title>Alta oferta</title>
@@ -30,7 +31,7 @@
 							<label for="imagen-oferta">Imagen:</label>
 							<input type="file" class="filestyle" name="imagen" data-buttonName="btn-primary"
 								data-iconName="glyphicon-inbox" data-buttonBefore="true"
-								data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg">
+								data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg" enctype="multipart/form-data">
 						</div>
 					</div>
 					<div class="col-md-3 col-md-offset-1">

@@ -92,7 +92,7 @@ class OfferModel extends AbstractModel{
         unset($data['fecha_inicio']);
         unset($data['fecha_fin']);
         unset($data['stock']);
-
+        
         $id = $this->registry->db->insert($this->table_name, $data);
         $this->insertCategoriasOfertas($id_categoria, $id);
 
