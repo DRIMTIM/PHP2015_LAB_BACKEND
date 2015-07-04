@@ -7,7 +7,7 @@
 	<title>Alta oferta</title>
 </head>
 <body>
-	<form role="form" action="<?php echo __ROOT . "/offer/crearOferta"?>" method="post">
+	<form role="form" action="<?php echo __ROOT . "/offer/crearOferta"?>" method="post" enctype="multipart/form-data">
 		<div class="panel panel-default col-md-9 col-md-offset-1">
   		  	<div class="panel-heading">
     			<h2 class="panel-title">Alta de Oferta</h2>
@@ -31,7 +31,7 @@
 							<label for="imagen-oferta">Imagen:</label>
 							<input type="file" class="filestyle" name="imagen" data-buttonName="btn-primary"
 								data-iconName="glyphicon-inbox" data-buttonBefore="true"
-								data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg" enctype="multipart/form-data">
+								data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg" >
 						</div>
 					</div>
 					<div class="col-md-3 col-md-offset-1">
@@ -90,7 +90,11 @@
 				</div>
 				<button type="submit" class="btn btn-default" style="width: 100%;">Crear Oferta</button>
 			</div>
-
+			<?php if(count($errores) > 0){ ?>
+				<div class="alert alert-danger" role="alert">
+					<?php foreach ($errores as $error){echo $error;}?>
+				</div>
+			<?php } ?>
 		</div>
 	</form>
 </body>

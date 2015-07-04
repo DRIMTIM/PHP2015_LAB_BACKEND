@@ -36,6 +36,7 @@ class OfferModel extends AbstractModel{
 
     public function crearOferta() {
 
+
         $tipoOferta = NULL;
         $this->fromArray($_POST);
         $data = $this->toArray();
@@ -48,9 +49,14 @@ class OfferModel extends AbstractModel{
         }
         $data['fecha_inicio'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_inicio"]);
         $data['fecha_fin'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_fin"]);
+        //Obtengo la imagen y la pasamos a b64
+        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
+        $imagen = base64_encode($imagen);
 
         $this->tipo = $data['tipo'];
         $this->id_categoria = $data['id_categoria'];
+        $data['imagen'] = $imagen;
+
 
         unset($data['tipo']);
         unset($data['id_categoria']);
@@ -92,7 +98,7 @@ class OfferModel extends AbstractModel{
         unset($data['fecha_inicio']);
         unset($data['fecha_fin']);
         unset($data['stock']);
-        
+
         $id = $this->registry->db->insert($this->table_name, $data);
         $this->insertCategoriasOfertas($id_categoria, $id);
 
