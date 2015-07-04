@@ -42,7 +42,11 @@ Class AjaxController extends BaseController {
 		$this->registry->template->categorias = $categorias;
 		echo json_encode($categorias);
 
-	}		
+	}
+
+	public function editarCategoria(){
+		$this->categoriasModel->editar($_POST['id']);
+	}
 
 	public function borrarCategoria(){
 		$this->categoriasModel->borrar($_GET['idCat']);
@@ -50,3 +54,5 @@ Class AjaxController extends BaseController {
 	}	
 	
 }
+
+?>

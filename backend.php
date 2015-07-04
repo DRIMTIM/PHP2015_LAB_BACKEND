@@ -4,23 +4,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin - Dashboard</title>
-
+	
 	<link href="<?php echo __ROOT_CSS . 'bootstrap.min.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'bootstrap-table.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'datepicker3.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'styles.css'?>" rel="stylesheet">
 
-	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
-		<!-- bootbox code -->
-	<script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
 	<!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
@@ -53,10 +42,10 @@
 					</li>
 				</ul>
 			</div>
-
+							
 		</div><!-- /.container-fluid -->
 	</nav>
-
+		
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<form role="search">
 			<div class="form-group">
@@ -73,20 +62,20 @@
 			<li role="presentation" class="divider"></li>
 		</ul>
 	</div><!--/.sidebar-->
-
-	<!-- MAIN -->
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	
+	<!-- MAIN -->	
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
 				<li class="active">Dashboard</li>
 			</ol>
 		</div><!--/.row-->
-
+		
 		<div class="row">
 			<br/>
 		</div><!--/.row-->
-
+		
 		<div class="row">
 			<div class="col-xs-12 col-md-6 col-lg-3">
 				<div class="panel panel-blue panel-widget ">
@@ -141,26 +130,38 @@
 				</div>
 			</div>
 		</div><!--/.row-->
-
+		
 		<div class="row">
 
 			<?php $registry->router->loader(); ?>
-			<?php
-
+			<?php 
+ 
 			?>
-
+		
 		</div><!--/.row-->
 
 	</div>	<!--/.main-->
+
+	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
+	    <!-- bootbox code -->
+    <script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>	
+	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
 
 	<script>
 		$('#calendar').datepicker({
 		});
 
 		!function ($) {
-		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
-		        $(this).find('em:first').toggleClass("glyphicon-minus");
-		    });
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
+		        $(this).find('em:first').toggleClass("glyphicon-minus");      
+		    }); 
 		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
 		}(window.jQuery);
 
@@ -170,7 +171,7 @@
 		$(window).on('resize', function () {
 		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 		})
-	</script>
+	</script>	
 </body>
 
 </html>
