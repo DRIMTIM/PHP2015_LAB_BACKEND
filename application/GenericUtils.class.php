@@ -22,7 +22,7 @@ class GenericUtils {
 	}
 	/**
 	 * Obtiene la diferencia de años entre la fecha de hoy y la ingresada.
-	 * @param unknown $strFechaNac 
+	 * @param unknown $strFechaNac
 	 */
 	public function getYears($strFechaNac){
 		$strFechaNac = str_replace("/", "-", $strFechaNac);
@@ -31,7 +31,7 @@ class GenericUtils {
 		$edad = $fechaActual->diff($fechaNac);
 		return $edad->y;
 	}
-	
+
 	/**
 	 * Verifica si una fecha ya paso.
 	 * @param unknown $strFecha string fecha de ingreso
@@ -68,15 +68,15 @@ class GenericUtils {
 		$fechaInicio = strtotime($fechaInicio);
 		$fechaFin = strtotime($fechaFin);
 		//Comparo
-		if($fechaInicio >= $inicioFechaActual && 
+		if($fechaInicio >= $inicioFechaActual &&
 			$fechaFin > $inicioFechaActual &&
-			$fechaInicio < $fechaFin && 
+			$fechaInicio < $fechaFin &&
 			$fechaFin <= $finFechaActual){
 			return true;
 		}
 		return false;
-	} 
-	
+	}
+
 	/**
 	 * Formatea un String de fecha de salida para transformarlo en un formato valido del plugin de jquery.
 	 * @param unknown $strDate Date String de entrada
@@ -88,7 +88,7 @@ class GenericUtils {
 		return $newDate;
 	}
 	/**
-	 * 
+	 *
 	 * @param unknown $strDate String de fecha de entrada a validar.
 	 * @return boolean retorna true si el string de fecha cumple con el patron de fecha, retorna false en caso contrario.
 	 */
@@ -100,11 +100,12 @@ class GenericUtils {
 		}
 		return true;
 	}
-	
+
 	public function roundPriceTwoDecimals($price){
 		if(empty($price)){
 			return false;
 		}
 		return round($price, 2, PHP_ROUND_HALF_UP);
 	}
+
 }
