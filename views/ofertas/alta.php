@@ -31,7 +31,7 @@
 							<label for="imagen-oferta">Imagen:</label>
 							<input type="file" class="filestyle" name="imagen" data-buttonName="btn-primary"
 								data-iconName="glyphicon-inbox" data-buttonBefore="true"
-								data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg" >
+								data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg" required="required">
 						</div>
 					</div>
 					<div class="col-md-3 col-md-offset-1">

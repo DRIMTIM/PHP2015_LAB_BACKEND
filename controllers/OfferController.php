@@ -10,10 +10,7 @@ class OfferController extends baseController {
 		$this->categorias_model = new CategoryModel($this->registry);
 	}
 
-	public function onConstruct() {
-		$ofertas = $this->offer_model->getAll();
-		$this->registry->template->ofertas = $ofertas;
-	}
+	public function onConstruct() { }
 
 	public function index() {
 		return alta();
@@ -36,7 +33,11 @@ class OfferController extends baseController {
 	}
 
 	public function update() {
+		$tipo = $_POST["tipo"];
+		$id = $_POST["id"];
 		$this->offer_model->update();
+		$oferta = $this->offer_model->getOferta($id,$tipo);
+		return $oferta;
 	}
 
 	// public function validateAlta() {

@@ -4,6 +4,9 @@
  */
 define('__USER', '__USER_');
 
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
+
 /**
  * * Defino la url root de la app **
  */
@@ -70,7 +73,7 @@ if($dirEntities = opendir(__SITE_PATH . "/models/entities")){
 function __autoload($class_name) {
 	$filename = $class_name . '.class.php';
 	$file = __SITE_PATH . '/models/' . $filename;
-	
+
 	if (file_exists ( $file ) == false) {
 		return false;
 	}
@@ -86,5 +89,5 @@ $registry = new registry ();
  * * create the database registry object **
  */
 
-$registry->db = new MysqliDb ( 'localhost', 'root', 'nachorevol', 'PHP_LAB' );
+$registry->db = new MysqliDb ( 'localhost', 'root', 'root', 'PHP_LAB' );
 ?>
