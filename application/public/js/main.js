@@ -169,11 +169,13 @@ function updateAdminById(id, nombre, nick, apellido, password, email){
 				url: ajaxURL + '/' + 'editAdmin',
 				data: {id:id, nombre:nombre, nick:nick, apellido:apellido, pass:password, 
 						email:email},
+				dataType: 'json',
 				success: function(data){
 					console.log("updateAdminById - Admin");
 					console.log(data);
-					/*loadAdminForm(data);
-					enableEditAdmin();*/
+					loadAdminForm(data);
+					enableEditAdmin();
+					$('#checkAdminEdit').prop('checked', false);
 				}				
 			});
 		}
@@ -196,7 +198,7 @@ $('#submitAdmin').click(function(){
 	var nombre = $('#nombre').val();
 	var apellido = $('#apellido').val();
 	var nick = $('#nick').val();
-	var password = "pelu";
+	var password = $('#password').val();;
 	var email = $('#email').val();
 
 	updateAdminById(id, nombre, nick, apellido, password, email);

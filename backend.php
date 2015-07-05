@@ -35,7 +35,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user">
 						</span> User <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="<?php echo __ROOT . "/admin/index"?>">
+							<li><a href="<?php echo __ROOT . "/admin"?>">
 								<span class="glyphicon glyphicon-user"></span> Cuenta</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Configuracion</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
@@ -54,7 +54,7 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+			<li class="active"><a href="<?php echo __ROOT ?>"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
 			<li><a href="<?php echo __ROOT . "/category"?>"><span class="glyphicon glyphicon-tags"></span> Categorias</a></li>
 			<li><a href="<?php echo __ROOT . "/offer/alta"?>"><span class="glyphicon glyphicon-shopping-cart"></span> Ofertas</a></li>
 			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Productos</a></li>

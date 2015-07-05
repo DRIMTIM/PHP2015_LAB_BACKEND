@@ -2,25 +2,25 @@
 
 Class IndexController Extends baseController {
 
-	private $categoriasModel = NULL;
-	private $ofertasStockModel = NULL;
-	private $ofertasTemporalesModel = NULL;
-	
+	private $offer_model = NULL;
+	private $adminModel = NULL;
+
 	public function onConstruct(){
-		$this->categoriasModel = new CategoryModel($this->registry);
-		$this->ofertasStockModel = new StockOfferModel($this->registry);
-		$this->ofertasTemporalesModel = new TemporalOfferModel($this->registry);
+		$this->adminModel = new AdminModel($this->registry);
+		$this->offer_model = new OfferModel($this->registry);
+	}
+
+	public function index() {		
+		$ofertas = $this->offer_model->getAll();
+		$this->registry->template->ofertas = $ofertas;		
+        $this->registry->template->show('index');
+	}
+
+	public function getAll() {
+		$ofertas = $this->offer_model->getAll();
+		echo json_encode($ofertas);
 	}
 		
-	public function index() {
-		/*** Cargo las categorias en el template para mostrarlas ***/
-	    $this->registry->template->categorias = $this->categoriasModel->getAll();
-	    /*** Cargo las ofertas en el template para mostrarlas ***/
-	    $this->registry->template->ofertasStock = $this->ofertasStockModel->getAll();
-	    $this->registry->template->ofertasTemporales = $this->ofertasTemporalesModel->getOfertasDelDia();
-		/*** load the index template ***/
-	    $this->registry->template->show('index');
-	}
 
 }
 

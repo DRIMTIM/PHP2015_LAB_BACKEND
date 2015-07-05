@@ -31,6 +31,18 @@ textarea {
 
 }
 
+a:hover .glyphicon-trash{
+
+	color: red;
+
+}
+
+a:hover .glyphicon-edit{
+
+	color: greenyellow;
+
+}
+
 /*-------------------------------------------------------*/
 
 /*Global Styles*/
