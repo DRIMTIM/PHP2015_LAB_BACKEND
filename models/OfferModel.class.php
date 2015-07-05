@@ -107,6 +107,62 @@ class OfferModel extends AbstractModel{
 
     }
 
+    public function update($oferta) {
+
+        $this->fromArray($_POST);
+        $data = $this->toArray();
+        $tipo = $data['tipo'];
+        $id_categoria = $data['id_categoria'];
+        $id = $data['id'];
+
+        $fecha_fin = $data['fecha_fin'];
+        $fecha_inicio = $data['fecha_fin'];
+        $stock = $data['stock'];
+        $activa = $data['activa'];
+
+        if(activa == 'on') {
+            $data['activa'] = true;
+        }
+        else {
+            $data['activa'] = false;
+        }
+
+        unset($data['stock']);
+        unset($data['fecha_inicio']);
+        unset($data['fecha_fin']);
+        unset($data['id']);
+        unset($data['tipo']);
+        unset($data['id_categoria']);
+
+        $oferta_vieja = $this->registry->db->where ("id_oferta", $id)->getOne('CATEGORIAS_OFERTAS');
+        $id_categoria_vieja = $ofertaVieja['id_categoria'];
+        //Si cambio la categoria entonces actualizamos la tabla relacion
+        if($id_categoria_vieja != $id_categoria) {
+            $this->updateIdCategoriaOferta($id_oferta, $id_categoria);
+        }
+        //Actualizamos la oferta
+        $this->registry->db->where('id', $id)->update($this->table_name, $data);
+        //Dependiendo del tipo de oferta updateamos
+        if($tipo == 'stock' && !empty($stock)) {
+            updateOfertaStock($id, array('stock'=>$stock));
+        }
+        else if($tipo == 'temporal' && !empty($fecha_fin) && !empty($fecha_inicio)) {
+            updateOfertaTemporal($id, array('fecha_fin' => $fecha_fin, 'fecha_inicio' => $fecha_inicio));
+        }
+    }
+
+    private function updateOfertaTemporal($id, $data) {
+        $this->registry->db->where('id', $id)->update($this->table_temporales, $data);
+    }
+
+    private function updateOfertaStock($id,$data) {
+        $this->registry->db->where('id', $id)->update($this->table_stock, $data);
+    }
+
+    private function updateIdCategoriaOferta($id_oferta,$id_cat_nuevo) {
+        $this->registry->db->where('id_oferta', $id_oferta)->update('CATEGORIAS_OFERTAS', array('id_categoria' => $id_cat_nuevo));
+    }
+
     private function insertarOfertaTemporal($id_categoria, $data) {
 
         $fecha_inicio = $this->fecha_inicio;
@@ -150,5 +206,6 @@ class OfferModel extends AbstractModel{
     private function insertCategoriasOfertas($id_categoria, $id_oferta) {
         $this->registry->db->insert('CATEGORIAS_OFERTAS', array('id_categoria' => $id_categoria, 'id_oferta' => $id_oferta));
     }
+
 }
 ?>

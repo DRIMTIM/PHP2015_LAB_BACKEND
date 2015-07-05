@@ -30,6 +30,11 @@ class OfferController extends baseController {
 		$ofertas = $this->offer_model->getAll();
 		return $ofertas;
 	}
+
+	public function update() {
+		$this->offer_model->update();
+	}
+
 	// public function validateAlta() {
 	//
 	// 	$errores = array();

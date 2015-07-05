@@ -7,7 +7,7 @@ CATEGORIAS(
     descripcion VARCHAR(200),
     PRIMARY KEY (id)
 
-);  
+);
 CREATE TABLE
 ADMINISTRADORES(
 
@@ -19,7 +19,7 @@ ADMINISTRADORES(
     pass VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 
-);    
+);
 CREATE TABLE
 USUARIOS(
 
@@ -41,13 +41,13 @@ OFERTAS(
 
     id bigint NOT NULL AUTO_INCREMENT,
     titulo VARCHAR(40) NOT NULL,
-    imagen VARCHAR(100), 
-    descripcion VARCHAR(200), 
+    imagen VARCHAR(100),
+    descripcion VARCHAR(200),
     descripcion_corta VARCHAR(80),
     precio DECIMAL(19,2),
     moneda VARCHAR(20),
     activa BOOLEAN NOT NULL,
-    PRIMARY KEY(id)        
+    PRIMARY KEY(id)
 
 );
 CREATE TABLE
@@ -75,13 +75,14 @@ OFERTAS_STOCK(
 CREATE TABLE
 COMPRAS(
 
-    id_compra bigint NOT NULL AUTO_INCREMENT,
+    id bigint NOT NULL AUTO_INCREMENT,
     id_oferta bigint NOT NULL,
     id_usuario bigint NOT NULL,
-    PRIMARY KEY(id_compra),
+    ticket VARCHAR(100),
+    PRIMARY KEY(id),
     FOREIGN KEY (id_oferta) REFERENCES OFERTAS(id) ON DELETE CASCADE,
     FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id) ON DELETE CASCADE
-    
+
 );
 CREATE TABLE
 CATEGORIAS_OFERTAS(
@@ -93,5 +94,20 @@ CATEGORIAS_OFERTAS(
     FOREIGN KEY(id_oferta) REFERENCES OFERTAS(id) ON DELETE CASCADE
 
 );
+/******		TRIGGER PARA RESTAR EL STOCK DE LAS OFERTAS DE STOCK CUANDO SE INSERTA EN LA TABLA COMPRAS	*****/
+DROP TRIGGER IF EXISTS TRG_COMPRAS;
+delimiter |
 
+CREATE TRIGGER TRG_COMPRAS AFTER INSERT ON COMPRAS
+  FOR EACH ROW
+  BEGIN
+    SET @OFERTA = (SELECT 1 FROM OFERTAS_STOCK OS WHERE NEW.id_oferta = OS.id);
+    IF @OFERTA > 0 THEN
+		SET @STOCK = (SELECT OS.stock FROM OFERTAS_STOCK OS WHERE NEW.id_oferta = OS.id);
+		IF @STOCK > 0 THEN
+			UPDATE OFERTAS_STOCK OS SET OS.stock = OS.stock - 1 WHERE OS.id = NEW.id_oferta;
+		END IF;
+    END IF;
+  END;
 
+| delimiter ;
