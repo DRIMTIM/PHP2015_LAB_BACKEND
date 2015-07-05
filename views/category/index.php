@@ -93,7 +93,7 @@
 						}
 					}else{ ?>
 
-						<tr><td><h3>No hay Categorias de Ofertas cargadas en el sistema</h3></td></tr>
+						<h3>No hay Categorias de Ofertas cargadas en el sistema</h3>
 
 					<?php
 				}?>

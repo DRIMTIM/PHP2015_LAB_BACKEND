@@ -10,7 +10,10 @@ class OfferController extends baseController {
 		$this->categorias_model = new CategoryModel($this->registry);
 	}
 
-	public function onConstruct() {}
+	public function onConstruct() {
+		$ofertas = $this->offer_model->getAll();
+		$this->registry->template->ofertas = $ofertas;
+	}
 
 	public function index() {
 		return alta();
@@ -28,6 +31,7 @@ class OfferController extends baseController {
 
 	public function getAll() {
 		$ofertas = $this->offer_model->getAll();
+		$this->registry->template->ofertas = $ofertas;
 		return $ofertas;
 	}
 

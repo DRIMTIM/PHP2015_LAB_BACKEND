@@ -61,7 +61,6 @@ Class AjaxController extends BaseController {
 	//*************************************************************//
 
 	public function getAdmin($email){
-
 		$admin = $this->adminModel->obtener($email);
 		echo json_encode($admin);
 
@@ -69,6 +68,8 @@ Class AjaxController extends BaseController {
 
 	public function editAdmin($idAdmin){
 		$this->adminModel->editar($_POST['id']);
+		$admin = $this->adminModel->obtener($_POST['email']);
+		echo json_encode($admin);
 	}	
 	
 }
