@@ -1,6 +1,10 @@
 <?php
 class OfferModel extends AbstractModel{
 
+    /* Para los errores
+    error_reporting(-1);
+    ini_set('display_errors', 'On');
+    */
     private $table_temporales = "OFERTAS_TEMPORALES";
     private $table_stock = "OFERTAS_STOCK";
 
@@ -29,9 +33,35 @@ class OfferModel extends AbstractModel{
 
     public function onConstruct(){ }
 
-
     public function getAll(){
 
+        $sql = "SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
+                ."o.moneda as moneda, o.activa as activa, null as fecha_inicio, null as fecha_fin, null as stock, 'normal' as tipo "
+            ."FROM PHP_LAB.OFERTAS o "
+            ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s, PHP_LAB.OFERTAS_TEMPORALES t "
+                                ."WHERE s.id = o.id OR t.id = o.id) "
+            ."UNION "
+
+            ."SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
+            ."    o.moneda as moneda, o.activa as activa, t.fecha_inicio as fecha_inicio, t.fecha_fin as fecha_fin, null as stock, 'temporal' as tipo "
+            ."FROM PHP_LAB.OFERTAS o "
+            ."INNER JOIN PHP_LAB.OFERTAS_TEMPORALES t ON t.id = o.id "
+
+            ."UNION "
+
+            ."SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
+            ."    o.moneda as moneda, o.activa as activa, null as fecha_inicio, null as fecha_fin, s.stock as stock, 'stock' as  tipo "
+            ."FROM PHP_LAB.OFERTAS o "
+            ."INNER JOIN PHP_LAB.OFERTAS_STOCK s ON s.id = o.id ";
+
+        $ofertas = $this->registry->db->rawQuery($sql);
+
+        $errors = $this->registry->db->getLastError();
+
+        if(!empty(trim($errors))) {
+            return $errors;
+        }
+        return $ofertas;
     }
 
     public function crearOferta() {
