@@ -43,8 +43,12 @@ class OfferModel extends AbstractModel{
                                 ."o.moneda as moneda, o.activa as activa, null as fecha_inicio, null as fecha_fin, null as stock, 'normal' as tipo "
                         ."FROM PHP_LAB.OFERTAS o "
 
-                        ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s, PHP_LAB.OFERTAS_TEMPORALES t "
-                                                ."WHERE s.id = o.id OR t.id = o.id) "
+                        ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s "
+                                        ."WHERE s.id = o.id "
+                                        ."UNION "
+                                        ."SELECT 1 FROM PHP_LAB.OFERTAS_TEMPORALES t "
+                                        ."WHERE t.id = o.id "
+                                        .") "
                         ."UNION "
 
                         ."SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
@@ -84,9 +88,12 @@ class OfferModel extends AbstractModel{
         $data['fecha_inicio'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_inicio"]);
         $data['fecha_fin'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_fin"]);
 
+        $path = $_FILES['imagen']['name'];
+        $type = pathinfo($path, PATHINFO_EXTENSION);
         //Obtengo la imagen y la pasamos a b64
         $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
-        $imagen = base64_encode($imagen);
+        $imagen = 'data:image/' . $type . ';base64,' . base64_encode($imagen);
+
         $data['imagen'] = $imagen;
 
         $this->tipo = $data['tipo'];
@@ -118,9 +125,12 @@ class OfferModel extends AbstractModel{
                 $sql = "SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
                                 ."o.moneda as moneda, o.activa as activa, co.id_categoria, c.nombre "
                         ."FROM PHP_LAB.OFERTAS o INNER JOIN PHP_LAB.CATEGORIAS_OFERTAS co ON o.id = co.id_oferta INNER JOIN PHP_LAB.CATEGORIAS c ON c.id = co.id_categoria "
-                        ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s, PHP_LAB.OFERTAS_TEMPORALES t "
-                                                ."WHERE s.id = o.id OR t.id = o.id) "
-                                                ."AND o.id = ?  ";
+                        ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s "
+                                        ."WHERE s.id = o.id AND o.id = ?"
+                                        ."UNION "
+                                        ."SELECT 1 FROM PHP_LAB.OFERTAS_TEMPORALES t "
+                                        ."WHERE t.id = o.id AND o.id = ?"
+                                        .") ";
                 break;
             case 'temporal':
                 $sql = "SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
@@ -142,7 +152,7 @@ class OfferModel extends AbstractModel{
                 break;
         }
 
-        $ofertas = $this->registry->db->rawQuery($sql, array('id' => $id));
+        $ofertas = $this->registry->db->rawQuery($sql, array($id));
 
         $errors = $this->registry->db->getLastError();
 
@@ -164,8 +174,13 @@ class OfferModel extends AbstractModel{
         $fecha_inicio = $data['fecha_fin'];
         $stock = $data['stock'];
         $activa = $data['activa'];
+
+        $path = $_FILES['imagen']['name'];
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+
         $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
-        $imagen = base64_encode($imagen);
+        $imagen = 'data:image/' . $type . ';base64,' . base64_encode($imagen);
+
         $data['imagen'] = $imagen;
 
         if(activa == 'on') {
