@@ -74,8 +74,8 @@ class OfferModel extends AbstractModel{
         $tipoOferta = NULL;
         $this->fromArray($_POST);
         $data = $this->toArray();
-
-        if($this->activa == 'on') {
+        
+        if($data['activa'] == 'on') {
             $data['activa'] = true;
         }
         else {
