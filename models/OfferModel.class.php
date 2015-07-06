@@ -32,6 +32,12 @@ class OfferModel extends AbstractModel{
     }
 
     public function onConstruct(){ }
+    
+    public function obtener($idCat){
+        
+        $oferta = $this->registry->db->where("id", $idCat)->get($this->table_name);
+        return $oferta[0];
+    }    
 
     public function getAll(){
 
@@ -268,6 +274,10 @@ class OfferModel extends AbstractModel{
 
     private function insertCategoriasOfertas($id_categoria, $id_oferta) {
         $this->registry->db->insert('CATEGORIAS_OFERTAS', array('id_categoria' => $id_categoria, 'id_oferta' => $id_oferta));
+    }
+    
+    public function borrar($idOffer){
+        return $this->registry->db->where("id", $idOffer)->delete($this->table_name, 1);
     }
 
 }

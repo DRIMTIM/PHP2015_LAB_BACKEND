@@ -70,7 +70,7 @@ VALUES ("Potter", "pelupotter@gmail.com", "pelupotter", "Pelu", MD5("nachoreol")
 INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac, 
 						timeZone, celular, password, edad) 
 VALUES ("pelupotter","Nacho", "Tejeira", "n.tejeira69@gmail.com", "1986-12-28 00:00:00", "URU", "099953574",
-		MD5("nachorevol"), "28");
+		MD5("potter"), "28");
 
 INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac, 
 						timeZone, celular, password, edad) 

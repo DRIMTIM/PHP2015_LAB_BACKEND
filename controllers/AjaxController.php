@@ -2,12 +2,12 @@
 
 Class AjaxController extends BaseController {
 
-	private $ofertasTemporalesModel = NULL;
+	private $ofertas_model = NULL;
 	private $categoriasModel = NULL;
 	private $adminModel = NULL;
 	
 	public function onConstruct(){
-		$this->ofertasTemporalesModel = new TemporalOfferModel($this->registry);
+		$this->ofertas_model = new OfferModel($this->registry);
 		$this->categoriasModel = new CategoryModel($this->registry);
 		$this->adminModel = new AdminModel($this->registry);
 	}
@@ -70,6 +70,27 @@ Class AjaxController extends BaseController {
 		$this->adminModel->editar($_POST['id']);
 		$admin = $this->adminModel->obtener($_POST['email']);
 		echo json_encode($admin);
+	}	
+
+
+	//*************************************************************//
+	// Response AJAX para Ofertas 						    	   //
+	//*************************************************************//
+
+	public function getOferta(){
+
+
+
+	}
+
+	public function getAllOfertas() {
+		$ofertas = $this->ofertas_model->getAll();
+		//$this->registry->template->ofertas = $ofertas;
+		echo json_encode($ofertas);
+	}
+
+	public function borrarOferta(){
+		$this->ofertas_model->borrar($_GET['idOffer']);
 	}	
 	
 }

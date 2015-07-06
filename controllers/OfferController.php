@@ -10,7 +10,7 @@ class OfferController extends baseController {
 		$this->categorias_model = new CategoryModel($this->registry);
 	}
 
-	public function onConstruct() { }
+	public function onConstruct() {}
 
 	public function index() {
 		return alta();
@@ -26,10 +26,28 @@ class OfferController extends baseController {
 		return $this->alta();
 	}
 
+	public function getOferta(){
+		$oferta = $this->offer_model->obtener($_GET['id']);
+		$this->registry->template->oferta = $oferta;
+		$this->registry->template->categorias = $this->categorias_model->getAll();
+		return $this->registry->template->show('ofertas/edit');
+
+	}
+
+	public function oferta(){
+		echo "la concha de la lora";
+		echo $_GET['id'];
+	}
+
 	public function getAll() {
 		$ofertas = $this->offer_model->getAll();
 		$this->registry->template->ofertas = $ofertas;
 		return $ofertas;
+	}
+
+	public function borrarOferta(){
+		$this->offer_model->borrar($_GET['idOffer']);
+		return $this->registry->template->show('index');
 	}
 
 	public function update() {
@@ -39,50 +57,7 @@ class OfferController extends baseController {
 		$oferta = $this->offer_model->getOferta($id,$tipo);
 		return $oferta;
 	}
-
-	// public function validateAlta() {
-	//
-	// 	$errores = array();
-	// 	$titulo $_POST['titulo'];
-	// 	$imagen = $_FILES['imagen'];
-	// 	$descripcion = $_POST['descripcion'];
-	// 	$descripcion_corta = $_POST['descripcion_corta'];
-	// 	$precio = $_POST['precio'];
-	// 	$moneda = $_POST['moneda'];
-	// 	$fecha_inicio = $_POST['fecha_inicio'];
-	// 	$fecha_fin = $_POST['fecha_fin'];
-	// 	$stock = $_POST['stock'];
-	//
-	// 	if(empty($titulo)) {
-	// 		array_push($errores, 'Titulo vacio.');
-	// 	}
-	// 	if(empty($imagen)) {
-	// 		array_push($errores, 'Imagen vacia.');
-	// 	}
-	// 	if(empty($descripcion) || empty($descripcion_corta)) {
-	// 		array_push($errores, 'Descripcion vacia');
-	// 	}
-	// 	if(empty($precio)) {
-	// 		array_push($errores, 'Precio vacio.');
-	// 	}
-	// 	if ($tipo == 'temporal') {
-	// 		if(!GenericUtils::getInstance()->isFechaValida($fecha_inicio)){
-	// 			array_push($errores, "La fecha ingresada no es valida!");
-	// 		}
-	// 		if(!GenericUtils::getInstance()->isFechaValida($fecha_fin)){
-	// 			array_push($errores, "La fecha ingresada no es valida!");
-	// 		}
-	// 	}
-	// 	else if ($tipo == 'stock') {
-	// 		if(empty($precio) || $precio < 0) {
-	// 			array_push($errores, "Precio incorrecto.");
-	// 		}
-	// 	}
-	// 	else if ($tipo != 'normal'){
-	// 		array_push($errores,'Tipo incorrecto');
-	// 	}
-	// 	return $errores;
-	// }
+	
 }
 
  ?>
