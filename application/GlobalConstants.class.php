@@ -19,4 +19,6 @@ class GlobalConstants {
 	public static $sqlToJqueryDateFormat = "d/m/Y";
 	//Tiempo en minutos entre pools para refrescar las ofertas temporales
 	public static $UPDATE_OFERTAS_TIMEOUT = (1000 * 60) * 1;
+	public static $FOLDER_SEPARATOR = '/';
+	public static $GUION = '-';
 }

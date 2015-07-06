@@ -24,7 +24,7 @@ class OfferController extends baseController {
 	}
 
 	public function crearOferta() {
-		$this->offer_model->crearOferta();
+		$this->registry->template->errores = $this->offer_model->crearOferta();
 		return $this->alta();
 	}
 

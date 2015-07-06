@@ -80,10 +80,24 @@ class OfferModel extends AbstractModel{
     }
 
     public function crearOferta() {
-
-        $tipoOferta = NULL;
-        $this->fromArray($_POST);
-        $data = $this->toArray();
+    	$tipoOferta = NULL;
+    	$this->fromArray($_POST);
+    	$data = $this->toArray();
+    	
+    	if (is_uploaded_file($_FILES['imagen']['tmp_name'])){
+    		$nombreDirectorio = __APPLICATION_FILES_OFERTAS_FOLDER;
+    		$nombreFichero = $_FILES['imagen']['name'];
+    		$nombreCompleto = $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
+    		if (is_file($nombreCompleto)){
+    			$idUnico = time();
+    			$nombreFichero = $idUnico . GlobalConstants::$GUION . $nombreFichero;
+    		}
+    		move_uploaded_file($_FILES['imagen']['tmp_name'], $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero);
+    		$data['imagen'] = __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
+    	
+    	} else {
+    		return "No se ha podido subir el fichero";
+    	}
 
         if($data['activa'] == 'on') {
             $data['activa'] = true;
@@ -93,15 +107,6 @@ class OfferModel extends AbstractModel{
         }
         $data['fecha_inicio'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_inicio"]);
         $data['fecha_fin'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_fin"]);
-
-        $path = $_FILES['imagen']['name'];
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        //Obtengo la imagen y la pasamos a b64
-        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
-        $imagen = 'data:image/' . $type . ';base64,' . base64_encode($imagen);
-
-        $data['imagen'] = $imagen;
-
         $this->tipo = $data['tipo'];
         $this->id_categoria = $data['id_categoria'];
 
@@ -158,18 +163,27 @@ class OfferModel extends AbstractModel{
         $fecha_inicio = $data['fecha_fin'];
         $stock = $data['stock'];
         $activa = $data['activa'];
-
+        
         if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name']))
         {
             unset($data['imagen']);
         }
         else
         {
-            $path = $_FILES['imagen']['name'];
-            $type = pathinfo($path, PATHINFO_EXTENSION);
-            $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
-            $imagen = 'data:image/' . $type . ';base64,' . base64_encode($imagen);
-            $data['imagen'] = $imagen;
+		
+        	if (is_uploaded_file($_FILES['imagen']['tmp_name'])){
+        		$nombreDirectorio = __APPLICATION_FILES_OFERTAS_FOLDER;
+        		$nombreFichero = $_FILES['imagen']['name'];
+        		$nombreCompleto = $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
+        		if (is_file($nombreCompleto)){
+        			$idUnico = time();
+        			$nombreFichero = $idUnico . GlobalConstants::$GUION . $nombreFichero;
+        		}
+        		move_uploaded_file($_FILES['imagen']['tmp_name'], $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero);
+        		$data['imagen'] = __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
+        	
+        	}
+        
         }
 
         if($activa == 'on') {

@@ -13,6 +13,24 @@ error_reporting ( E_ALL );
 $site_path = realpath ( dirname ( __FILE__ ) );
 define ( '__SITE_PATH', $site_path );
 
+$protocolo = $_SERVER["HTTPS"];
+
+if(empty($protocolo)){
+	$protocolo = "http://";
+}else{
+	$protocolo = "https://";
+}
+
+define('__CONTAINER_FOLDER', substr($site_path, 0, strripos($site_path, '/')));
+
+define ( '__APPLICATION_FILES_FOLDER', __CONTAINER_FOLDER . '/APPLICATION_FILES/DT_MARKET');
+
+define ( '__APPLICATION_FILES_FOLDER_SERVER', $protocolo . $_SERVER["SERVER_NAME"] . ':' . $_SERVER["SERVER_PORT"] . '/APPLICATION_FILES/DT_MARKET');
+
+define ( '__APPLICATION_FILES_OFERTAS_FOLDER', __APPLICATION_FILES_FOLDER . '/OFERTAS');
+
+define ( '__APPLICATION_FILES_OFERTAS_FOLDER_SERVER', __APPLICATION_FILES_FOLDER_SERVER . '/OFERTAS');
+
 /**
  * cargo las inicializaciones
  */
