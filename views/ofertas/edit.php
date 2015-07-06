@@ -7,37 +7,39 @@
 									<b>Datos de la Oferta</b>
 		</div>
 		<div class="panel-body">
-			<form role="form" method="post" enctype="multipart/form-data">
+			<form role="form" method="post" enctype="multipart/form-data" action="<?php echo __ROOT . "/offer/update"?>">
+				<input type="hidden" name="id" value="<?php echo $oferta['id'];?>">
+				<input type="hidden" name="tipo" value="<?php echo $oferta['tipo'];?>">
 				<div class="form-group">
 					<label for="titulo-oferta">Título:</label>
-					<input type="text" name="titulo" class="form-control" 
+					<input type="text" name="titulo" class="form-control"
 					id="titulo-oferta" required="required"
 					value="<?php echo $oferta["titulo"];?>" class="form-control">
 				</div>
 
 				<div class="form-group">
 					<label for="precio-oferta">Precio:</label>
-					<input type="number" name="precio" class="form-control" 
+					<input type="number" name="precio" class="form-control"
 					id="precio-oferta" min="0.1" step="any" required="required"
 					value="<?php echo $oferta["precio"];?>" class="form-control">
-				</div>		
+				</div>
 
 				<div class="form-group">
 					<label for="descripcion-oferta">Descripción:</label>
-					<textarea class="form-control" name="descripcion" 
-						id="descripcion-oferta" required="required" rows="5" 
-						class="form-control"><?php echo $oferta["descripcion"];?> 
+					<textarea class="form-control" name="descripcion"
+						id="descripcion-oferta" required="required" rows="5"
+						class="form-control"><?php echo $oferta["descripcion"];?>
 					</textarea>
 			</div>
 			<div class="form-group">
 				<label for="descripcion-corta-oferta">Descripción corta:</label>
-				<textarea class="form-control" name="descripcion_corta" 
+				<textarea class="form-control" name="descripcion_corta"
 					id="descripcion-corta-oferta" rows="2"><?php echo $oferta["descripcion_corta"];?>
 				</textarea>
 			</div>
 			<div class="form-group">
 				<label for="imagen-oferta">Imagen:</label>
-				<input type="file" class="filestyle" name="imagen" 
+				<input type="file" class="filestyle" name="imagen"
 				data-buttonName="btn-primary"
 				data-iconName="glyphicon-inbox" data-buttonBefore="true"
 				data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg" >
@@ -47,8 +49,16 @@
 				<label for="">Moneda:</label>
 				<select name="moneda" class="form-control">
 					<?php
-					echo'<option value="'.Moneda::DOLARES.'">'.Moneda::DOLARES.'</option>';
-					echo'<option value="'.Moneda::PESOS.'">'.Moneda::PESOS.'</option>';
+					$selectedDolares = '';
+					$selectedPesos = '';
+					if(Moneda::DOLARES == $oferta['moneda']) {
+						$selectedDolares = 'selected="selected"';
+					}
+					else {
+						$selectedPesos = 'selected="selected"';
+					}
+					echo'<option value="'.Moneda::DOLARES.'" '.$selecteDolares.'>'.Moneda::DOLARES.'</option>';
+					echo'<option value="'.Moneda::PESOS.'" '.$selectedPesos.' >'.Moneda::PESOS.'</option>';
 					?>
 				</select>
 			</div>
@@ -67,28 +77,27 @@
 					?>
 				</select>
 			</div>
-			<div class="form-group">
-				<label for="precio-oferta">Tipo de oferta:</label>
-				<select class="form-control" name="tipo" id="combo-tipo-oferta">
-					<option value="normal" selected="selected">Normal</option>
-					<option value="temporal">Temporal</option>
-					<option value="stock">Hasta agotar Stock</option>
-				</select>
-			</div>
-			<div class="form-group" id="container-ofertas-stock">
-				<label for="precio-oferta">Cantidad de Stock:</label>
-				<input type="number" id="stock" name="stock" class="form-control" min="1">
-			</div>
-			<div class="form-group" id="container-ofertas-temporales">
-				<label for="fecha-desde">Desde:</label>
-				<input type="text" name="fecha_inicio" class="form-control" id="fecha-desde">
-				<label for="fecha-hasta">Hasta:</label>
-				<input type="text" name="fecha_fin" class="form-control" id="fecha-hasta">
-			</div>
+			<?php if($oferta['stock'] != NULL) {
+			echo '<div class="form-group" id="container-ofertas-stock">'
+				.'<label for="precio-oferta">Cantidad de Stock:</label>'
+				.'<input type="number" id="stock" name="stock" value="'.$oferta['stock'].'" class="form-control" min="1">'
+				.'</div>';
+			}
+			?>
+			<?php
+			if($oferta['fecha_inicio'] != NULL) {
+			echo '<div class="form-group" id="container-ofertas-temporales">'
+				.'<label for="fecha-desde">Desde:</label>'
+				.'<input type="text" name="fecha_inicio" value="'.$oferta['fecha_inicio'].'" class="form-control" id="fecha-desde">'
+				.'<label for="fecha-hasta">Hasta:</label>'
+				.'<input type="text" name="fecha_fin" value="'.$oferta['fecha_fin'].'" class="form-control" id="fecha-hasta">'
+			.'</div>';
+			}
+			?>
 			<div class="panel-footer divider">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="activa"> Activa
+						<input type="checkbox" name="activa" <?php if($oferta['activa'] == true) echo 'checked'?> > Activa
 					</label>
 				</div>
 				<button type="submit" class="btn btn-primary pull-right">
@@ -106,33 +115,16 @@
 
 	$(document).ready(function(){
 		inicializarCalendars();
-		cambiarForm();
 		$(document).on("change", $("#combo-tipo-oferta"), cambiarForm);
 	});
 
-	function cambiarForm() {
-		var selectedValue = $("#combo-tipo-oferta").val();
-		switch(selectedValue) {
-			case "normal":
-			$("#container-ofertas-stock").hide();
-			$("#container-ofertas-temporales").hide();
-			break;
-			case "temporal":
-			$("#container-ofertas-temporales").show();
-			$("#container-ofertas-stock").hide();
-			break;
-			case "stock":
-			$("#container-ofertas-temporales").hide();
-			$("#container-ofertas-stock").show();
-			break;
-			default:
-			break;
-		}
-	}
-
 	function inicializarCalendars() {
-		inicializarCalendar($("#fecha-desde"));
-		inicializarCalendar($("#fecha-hasta"));
+		var desde = $("#fecha-desde");
+		var hasta = $("#fecha-hasta");
+		if(desde != null && desde != '') {
+			inicializarCalendar($("#fecha-desde"));
+			inicializarCalendar($("#fecha-hasta"));
+		}
 	}
 
 	function inicializarCalendar(input) {

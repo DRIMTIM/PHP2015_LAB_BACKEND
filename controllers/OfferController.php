@@ -13,7 +13,9 @@ class OfferController extends baseController {
 	public function onConstruct() {}
 
 	public function index() {
-		return alta();
+		$ofertas = $this->offer_model->getAll();
+		$this->registry->template->ofertas = $ofertas;
+	    $this->registry->template->show('index');
 	}
 
 	public function alta() {
@@ -27,7 +29,7 @@ class OfferController extends baseController {
 	}
 
 	public function getOferta(){
-		$oferta = $this->offer_model->obtener($_GET['id']);
+		$oferta = $this->offer_model->getOferta($_GET['id']);
 		$this->registry->template->oferta = $oferta;
 		$this->registry->template->categorias = $this->categorias_model->getAll();
 		return $this->registry->template->show('ofertas/edit');
@@ -47,17 +49,16 @@ class OfferController extends baseController {
 
 	public function borrarOferta(){
 		$this->offer_model->borrar($_GET['idOffer']);
-		return $this->registry->template->show('index');
+		return $this->index();
 	}
 
 	public function update() {
 		$tipo = $_POST["tipo"];
 		$id = $_POST["id"];
 		$this->offer_model->update();
-		$oferta = $this->offer_model->getOferta($id,$tipo);
-		return $oferta;
+		return $this->index();
 	}
-	
+
 }
 
  ?>

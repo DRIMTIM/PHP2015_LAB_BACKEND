@@ -32,12 +32,12 @@ class OfferModel extends AbstractModel{
     }
 
     public function onConstruct(){ }
-    
+
     public function obtener($idCat){
-        
+
         $oferta = $this->registry->db->where("id", $idCat)->get($this->table_name);
         return $oferta[0];
-    }    
+    }
 
     public function getAll(){
 
@@ -124,51 +124,29 @@ class OfferModel extends AbstractModel{
 
     }
 
-    public function getOferta($id, $tipo) {
+    public function getOferta($id) {
         $sql = NULL;
-        switch ($tipo) {
-            case 'normal':
-                $sql = "SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
-                                ."o.moneda as moneda, o.activa as activa, co.id_categoria, c.nombre "
-                        ."FROM PHP_LAB.OFERTAS o INNER JOIN PHP_LAB.CATEGORIAS_OFERTAS co ON o.id = co.id_oferta INNER JOIN PHP_LAB.CATEGORIAS c ON c.id = co.id_categoria "
-                        ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s "
-                                        ."WHERE s.id = o.id AND o.id = ?"
-                                        ."UNION "
-                                        ."SELECT 1 FROM PHP_LAB.OFERTAS_TEMPORALES t "
-                                        ."WHERE t.id = o.id AND o.id = ?"
-                                        .") ";
-                break;
-            case 'temporal':
-                $sql = "SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
-                                ."o.moneda as moneda, o.activa as activa, co.id_categoria, c.nombre, ot.fecha_fin, ot.fecha_inicio "
-                        ."FROM PHP_LAB.OFERTAS o INNER JOIN PHP_LAB.CATEGORIAS_OFERTAS co ON o.id = co.id_oferta "
-                                               ."INNER JOIN PHP_LAB.CATEGORIAS c ON c.id = co.id_categoria "
-                                               ."INNER JOIN PHP_LAB.OFERTAS_TEMPORALES ot ON o.id = ot.id "
-                        ."WHERE o.id = ? ";
-                break;
-            case 'stock':
-                $sql = "SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
-                                ."o.moneda as moneda, o.activa as activa, co.id_categoria, c.nombre, ot.stock "
-                        ."FROM PHP_LAB.OFERTAS o INNER JOIN PHP_LAB.CATEGORIAS_OFERTAS co ON o.id = co.id_oferta "
-                                               ."INNER JOIN PHP_LAB.CATEGORIAS c ON c.id = co.id_categoria "
-                                               ."INNER JOIN PHP_LAB.OFERTAS_STOCK ot ON o.id = ot.id "
-                        ."WHERE o.id = ?";
-                break;
-            default:
-                break;
-        }
-
-        $ofertas = $this->registry->db->rawQuery($sql, array($id));
-
+        $params = Array($id);
+        $sql = "SELECT o.id, o.titulo, o.imagen, o.descripcion, o.descripcion_corta, o.precio, o.moneda, o.activa, ot.fecha_fin, ot.fecha_inicio, os.stock, "
+                     ."CASE "
+                      ."WHEN os.stock IS NOT NULL THEN 'stock' "
+                      ."WHEN ot.fecha_fin IS NOT NULL AND ot.fecha_inicio IS NOT NULL THEN 'temporal' "
+                      ."WHEN ot.fecha_fin IS NULL AND os.stock IS NULL AND ot.fecha_inicio IS NULL THEN 'normal' "
+                     ."END as tipo "
+                ."FROM OFERTAS o "
+                ."LEFT JOIN PHP_LAB.OFERTAS_TEMPORALES ot ON ot.id = o.id "
+                ."LEFT JOIN PHP_LAB.OFERTAS_STOCK os ON os.id = o.id "
+                ."WHERE o.id = ?";
+        $ofertas = $this->registry->db->rawQuery($sql, $params);
         $errors = $this->registry->db->getLastError();
 
         if(!empty(trim($errors))) {
             return $errors;
         }
-        return $ofertas;
+        return $ofertas[0];
     }
 
-    public function update($oferta) {
+    public function update() {
 
         $this->fromArray($_POST);
         $data = $this->toArray();
@@ -181,15 +159,20 @@ class OfferModel extends AbstractModel{
         $stock = $data['stock'];
         $activa = $data['activa'];
 
-        $path = $_FILES['imagen']['name'];
-        $type = pathinfo($path, PATHINFO_EXTENSION);
+        if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name']))
+        {
+            unset($data['imagen']);
+        }
+        else
+        {
+            $path = $_FILES['imagen']['name'];
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
+            $imagen = 'data:image/' . $type . ';base64,' . base64_encode($imagen);
+            $data['imagen'] = $imagen;
+        }
 
-        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
-        $imagen = 'data:image/' . $type . ';base64,' . base64_encode($imagen);
-
-        $data['imagen'] = $imagen;
-
-        if(activa == 'on') {
+        if($activa == 'on') {
             $data['activa'] = true;
         }
         else {
@@ -204,19 +187,19 @@ class OfferModel extends AbstractModel{
         unset($data['id_categoria']);
 
         $oferta_vieja = $this->registry->db->where ("id_oferta", $id)->getOne('CATEGORIAS_OFERTAS');
-        $id_categoria_vieja = $ofertaVieja['id_categoria'];
+        $id_categoria_vieja = $oferta_vieja['id_categoria'];
         //Si cambio la categoria entonces actualizamos la tabla relacion
         if($id_categoria_vieja != $id_categoria) {
-            $this->updateIdCategoriaOferta($id_oferta, $id_categoria);
+            $this->updateIdCategoriaOferta($id, $id_categoria);
         }
         //Actualizamos la oferta
         $this->registry->db->where('id', $id)->update($this->table_name, $data);
         //Dependiendo del tipo de oferta updateamos
         if($tipo == 'stock' && !empty($stock)) {
-            updateOfertaStock($id, array('stock'=>$stock));
+            $this->updateOfertaStock($id, array('stock'=>$stock));
         }
         else if($tipo == 'temporal' && !empty($fecha_fin) && !empty($fecha_inicio)) {
-            updateOfertaTemporal($id, array('fecha_fin' => $fecha_fin, 'fecha_inicio' => $fecha_inicio));
+            $this->updateOfertaTemporal($id, array('fecha_fin' => $fecha_fin, 'fecha_inicio' => $fecha_inicio));
         }
     }
 
@@ -275,9 +258,15 @@ class OfferModel extends AbstractModel{
     private function insertCategoriasOfertas($id_categoria, $id_oferta) {
         $this->registry->db->insert('CATEGORIAS_OFERTAS', array('id_categoria' => $id_categoria, 'id_oferta' => $id_oferta));
     }
-    
+
     public function borrar($idOffer){
         return $this->registry->db->where("id", $idOffer)->delete($this->table_name, 1);
+    }
+
+    private function deleteCategoriaOferta($id_categoria, $id_oferta) {
+        $this->registry->db->where('id_categoria', $id_categoria);
+        $this->registry->db->where('id_oferta', $id_oferta);
+        $this->registry->db->delete('CATEGORIAS_OFERTAS');
     }
 
 }
