@@ -204,3 +204,94 @@ $('#submitAdmin').click(function(){
 	updateAdminById(id, nombre, nick, apellido, password, email);
 
 });
+
+
+/**************************************/
+/*          Ofertas             	  */
+/**************************************/
+
+
+function deleteOfferById(id){	
+
+	bootbox.confirm("<b>Estas seguro que quiere eliminar la Oferta?<b>", function(result){
+		if(result){
+			console.log('deleteOfferById: ' + id);
+			$.ajax({
+				type: 'GET',		
+				url: ajaxURL + '/' + 'borrarOferta',
+				data: 'idOffer=' + id,
+				success: function(data){
+					findAllOffers();
+				}				
+			});
+		}
+	});	
+}
+
+function findAllOffers(){
+
+	console.log('findAllOffers!');
+	$.ajax({
+		type: 'GET',		
+		url: ajaxURL + '/' + 'getAllOfertas',
+		dataType: 'json',
+		success: function(data){
+			console.log("Lista de Ofertas:");
+			console.log(data);
+			renderOfferTable(data);
+		}
+	});
+
+}
+
+function renderOfferTable(data){
+
+	var list = data == null ? [] : (data instanceof Array ? data : [data]);
+	var theader = 
+				"<thead>" +
+					"<tr>" +
+						"<th data-field='state' data-checkbox='true' >Activa</th>" +
+						"<th ></th>" +
+						"<th data-field='id' data-sortable='true'><b>ID</b></th>" +
+						"<th data-field='name'  data-sortable='true'><b>Titulo</b></th>" +
+						"<th data-field='desc' data-sortable='true'><b>Descripcion</b></th>" +
+						"<th data-field='moneda' data-sortable='true'> <b>$ / $US</b></th>" +
+						"<th data-field='price' data-sortable='true'><b>Precio</b></th>" +
+						"<th ></th>" +
+					"</tr>" +
+				"</thead>";
+
+	if(list != null){
+		$('#offerTable > tbody').html("");
+		$.each(list, function(index, offer) {
+
+			//var clase = (index % 2 === 0) ? clase = 'info' : 'default';	
+
+			$('#offerTable > tbody')
+				.append("<tr>" +
+							"<td >Check</td>" +
+							"<td>" +
+								"<a href='/offer/getOferta?id=' style='cursor: pointer' >" +
+									"<span class='glyphicon glyphicon-edit'></span>" +
+								"</a>" +						
+							"</td>" +					
+							"<td>" + offer["id"] + "</td>" +
+							"<td>" + offer["titulo"] + "</td>" +
+							"<td>" + offer["descripcion"] + "</td>" +
+							"<td>" + offer["moneda"] + "</td>" +
+							"<td>" + offer["precio"] + "</td>" +
+							"<td>" +
+								"<a style='cursor: pointer' onclick='deleteOfferById" +
+															"(" + offer['id'] + ")'>" +
+								"<span class='glyphicon glyphicon-trash'></span>" + 
+								"</a>" +						
+							"</td>" +
+						"</tr>");
+		});						
+
+	}else{
+
+
+	}	
+
+}

@@ -86,7 +86,7 @@
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
 							<div class="large">120</div>
-							<div class="text-muted">New Orders</div>
+							<div class="text-muted">Ofertas</div>
 						</div>
 					</div>
 				</div>
@@ -99,7 +99,7 @@
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
 							<div class="large">52</div>
-							<div class="text-muted">Comments</div>
+							<div class="text-muted">Compras</div>
 						</div>
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
 							<div class="large">24</div>
-							<div class="text-muted">New Users</div>
+							<div class="text-muted">Usuarios</div>
 						</div>
 					</div>
 				</div>
@@ -124,8 +124,8 @@
 							<em class="glyphicon glyphicon-stats glyphicon-l"></em>
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
-							<div class="large">25.2k</div>
-							<div class="text-muted">Visitors</div>
+							<div class="large">25</div>
+							<div class="text-muted">Categorias</div>
 						</div>
 					</div>
 				</div>
@@ -148,7 +148,7 @@
 	    <!-- bootbox code -->
     <script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>	
 	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
@@ -158,12 +158,14 @@
 	<script>
 		$('#calendar').datepicker({
 		});
+
 		!function ($) {
 		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
 		        $(this).find('em:first').toggleClass("glyphicon-minus");
 		    });
 		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
 		}(window.jQuery);
+
 		$(window).on('resize', function () {
 		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
 		})

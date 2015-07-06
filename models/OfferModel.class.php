@@ -33,6 +33,12 @@ class OfferModel extends AbstractModel{
 
     public function onConstruct(){ }
 
+    public function obtener($idCat){
+        
+        $oferta = $this->registry->db->where("id", $idCat)->get($this->table_name);
+        return $oferta[0];
+    }    
+
     public function getAll(){
 
         $sql = "SELECT t.id, t.titulo as titulo, t.imagen as imagen, t.descripcion as descripcion, t.descripcion_corta as descripcion_corta, t.precio as precio, "
@@ -43,8 +49,12 @@ class OfferModel extends AbstractModel{
                                 ."o.moneda as moneda, o.activa as activa, null as fecha_inicio, null as fecha_fin, null as stock, 'normal' as tipo "
                         ."FROM PHP_LAB.OFERTAS o "
 
-                        ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s, PHP_LAB.OFERTAS_TEMPORALES t "
-                                                ."WHERE s.id = o.id OR t.id = o.id) "
+                        ."WHERE NOT EXISTS(SELECT 1 FROM PHP_LAB.OFERTAS_STOCK s "
+                          ."WHERE s.id  = o.id "
+                          ."UNION "
+                          ."SELECT 1 FROM PHP_LAB.OFERTAS_TEMPORALES t "
+                          ."WHERE t.id  = o.id "
+                          .") "
                         ."UNION "
 
                         ."SELECT o.id, o.titulo as titulo, o.imagen as imagen, o.descripcion as descripcion, o.descripcion_corta as descripcion_corta, o.precio as precio, "
@@ -61,6 +71,7 @@ class OfferModel extends AbstractModel{
                 .") t INNER JOIN PHP_LAB.CATEGORIAS_OFERTAS co ON t.id = co.id_oferta INNER JOIN PHP_LAB.CATEGORIAS c ON c.id = co.id_categoria ";
 
         $ofertas = $this->registry->db->rawQuery($sql);
+
         $errors = $this->registry->db->getLastError();
 
         if(!empty(trim($errors))) {
@@ -70,6 +81,7 @@ class OfferModel extends AbstractModel{
     }
 
     public function crearOferta() {
+
 
         $tipoOferta = NULL;
         $this->fromArray($_POST);
@@ -255,5 +267,8 @@ class OfferModel extends AbstractModel{
         $this->registry->db->insert('CATEGORIAS_OFERTAS', array('id_categoria' => $id_categoria, 'id_oferta' => $id_oferta));
     }
 
+    public function borrar($idOffer){
+        return $this->registry->db->where("id", $idOffer)->delete($this->table_name, 1);
+    }
 }
 ?>

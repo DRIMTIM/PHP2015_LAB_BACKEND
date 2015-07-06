@@ -89,5 +89,5 @@ $registry = new registry ();
  * * create the database registry object **
  */
 
-$registry->db = new MysqliDb ( 'localhost', 'root', 'root', 'PHP_LAB' );
+$registry->db = new MysqliDb ( 'localhost', 'root', 'nachorevol', 'PHP_LAB' );
 ?>
