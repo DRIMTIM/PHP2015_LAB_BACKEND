@@ -74,7 +74,7 @@ class OfferModel extends AbstractModel{
         $tipoOferta = NULL;
         $this->fromArray($_POST);
         $data = $this->toArray();
-        
+
         if($data['activa'] == 'on') {
             $data['activa'] = true;
         }
@@ -83,12 +83,12 @@ class OfferModel extends AbstractModel{
         }
         $data['fecha_inicio'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_inicio"]);
         $data['fecha_fin'] = GenericUtils::getInstance()->getFormatDateIn($data["fecha_fin"]);
+
         //Obtengo la imagen y la pasamos a b64
-        if(!empty($data['imagen'])) {
-            $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
-            $imagen = base64_encode($imagen);
-            $data['imagen'] = $imagen;
-        }
+        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
+        $imagen = base64_encode($imagen);
+        $data['imagen'] = $imagen;
+
         $this->tipo = $data['tipo'];
         $this->id_categoria = $data['id_categoria'];
 
@@ -164,13 +164,9 @@ class OfferModel extends AbstractModel{
         $fecha_inicio = $data['fecha_fin'];
         $stock = $data['stock'];
         $activa = $data['activa'];
-        if(!empty($data['imagen'])) {
-            $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
-            $imagen = base64_encode($imagen);
-            if($imagen) {
-                $data['imagen'] = $imagen;
-            }
-        }
+        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
+        $imagen = base64_encode($imagen);
+        $data['imagen'] = $imagen;
 
         if(activa == 'on') {
             $data['activa'] = true;
