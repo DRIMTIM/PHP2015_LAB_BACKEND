@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-filestyle.min.js'?>"></script>
-	<meta charset="UTF-8">
-	<title>Alta oferta</title>
-</head>
-<body>
-	<form role="form" action="<?php echo __ROOT . "/offer/crearOferta"?>" method="post" enctype="multipart/form-data">
+<form role="form" action="<?php echo __ROOT . "/offer/crearOferta"?>" method="post" enctype="multipart/form-data">
 		<div class="panel panel-default col-md-9 col-md-offset-1">
   		  	<div class="panel-heading">
     			<h2 class="panel-title">Alta de Oferta</h2>
@@ -29,9 +20,10 @@
 						</div>
 						<div class="form-group">
 							<label for="imagen-oferta">Imagen:</label>
-							<input type="file" class="filestyle" name="imagen" data-buttonName="btn-primary"
+							<input type="file" class="filestyle" name="imagen[]" data-buttonName="btn-primary"
 								data-iconName="glyphicon-inbox" data-buttonBefore="true"
-								data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg,.png" required="required">
+								data-buttonText="Subir Imagen ..." accept="<?php echo GlobalConstants::$FILE_SUPPORT_EXT; ?>" required="required"
+								multiple="multiple">
 						</div>
 					</div>
 					<div class="col-md-3 col-md-offset-1">
@@ -43,15 +35,15 @@
 							<label for="">Moneda:</label>
 							<select name="moneda" class="form-control">
 								<?php
-									echo'<option value="'.Moneda::DOLARES.'">'.Moneda::DOLARES.'</option>';
-									echo'<option value="'.Moneda::PESOS.'">'.Moneda::PESOS.'</option>';
-								?>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="categorias" >Categoria</label>
-							<select id="categorias" name="id_categoria" class="form-control">
-								<?php
+								echo'<option value="'.Moneda::DOLARES.'">'.Moneda::DOLARES.'</option>';
+								echo'<option value="'.Moneda::PESOS.'">'.Moneda::PESOS.'</option>';
+							?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="categorias" >Categoria</label>
+						<select id="categorias" name="id_categoria" class="form-control">
+							<?php
 								if(empty($categorias)) {
 									echo '<option value="-1"> No hay categorias </option>';
 								}
@@ -60,45 +52,43 @@
 										echo'<option value="'.$categoria["id"].'">'.$categoria["nombre"].'</option>';
 									}
 								}
-								?>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="precio-oferta">Tipo de oferta:</label>
-							<select class="form-control" name="tipo" id="combo-tipo-oferta">
-								<option value="normal" selected="selected">Normal</option>
-								<option value="temporal">Temporal</option>
-								<option value="stock">Hasta agotar Stock</option>
-							</select>
-						</div>
-						<div class="form-group" id="container-ofertas-stock">
-							<label for="precio-oferta">Cantidad de Stock:</label>
-							<input type="number" id="stock" name="stock" class="form-control" min="1">
-						</div>
-						<div class="form-group" id="container-ofertas-temporales">
-							<label for="fecha-desde">Desde:</label>
-							<input type="text" name="fecha_inicio" class="form-control" id="fecha-desde">
-							<label for="fecha-hasta">Hasta:</label>
-							<input type="text" name="fecha_fin" class="form-control" id="fecha-hasta">
-						</div>
-					 	<div class="checkbox">
-						    <label>
-						    	<input type="checkbox" name="activa"> Activa
-						    </label>
-						</div>
+							?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="precio-oferta">Tipo de oferta:</label>
+						<select class="form-control" name="tipo" id="combo-tipo-oferta">
+							<option value="normal" selected="selected">Normal</option>
+							<option value="temporal">Temporal</option>
+							<option value="stock">Hasta agotar Stock</option>
+						</select>
+					</div>
+					<div class="form-group" id="container-ofertas-stock">
+						<label for="precio-oferta">Cantidad de Stock:</label>
+						<input type="number" id="stock" name="stock" class="form-control" min="1">
+					</div>
+					<div class="form-group" id="container-ofertas-temporales">
+						<label for="fecha-desde">Desde:</label>
+						<input type="text" name="fecha_inicio" class="form-control" id="fecha-desde">
+						<label for="fecha-hasta">Hasta:</label>
+						<input type="text" name="fecha_fin" class="form-control" id="fecha-hasta">
+					</div>
+				 	<div class="checkbox">
+					    <label>
+					    	<input type="checkbox" name="activa"> Activa
+					    </label>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-default" style="width: 100%;">Crear Oferta</button>
 			</div>
-			<?php if(count($errores) > 0){ ?>
-				<div class="alert alert-danger" role="alert">
-					<?php foreach ($errores as $error){echo $error;}?>
-				</div>
-			<?php } ?>
+			<button type="submit" class="btn btn-default" style="width: 100%;">Crear Oferta</button>
 		</div>
-	</form>
-</body>
-
+		<?php if(count($errores) > 0){ ?>
+			<div class="alert alert-danger" role="alert">
+				<?php foreach ($errores as $error){echo $error;}?>
+			</div>
+		<?php } ?>
+	</div>
+</form>
 <script>
 
 	$(document).ready(function(){
@@ -133,11 +123,17 @@
 	}
 
 	function inicializarCalendar(input) {
-		input.datepicker({
+		input.datetimepicker({
 			changeYear: true,
 			changeMonth: true,
 			currentText: "Ahora",
+			closeText: "Listo",
+			timeText: "Tiempo",
+			hourText: "Hora",
+			minuteText: "Minuto",
+			secondText: "Segundo",
 			dateFormat: "<?php echo GlobalConstants::$jqueryDateFormat; ?>",
+			timeFormat: "<?php echo GlobalConstants::$jqueryTimeFormat; ?>",
 			autoSize: true,
 			firstDay: 1,
 			dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ],
@@ -149,5 +145,3 @@
 	}
 
 </script>
-
-</html>

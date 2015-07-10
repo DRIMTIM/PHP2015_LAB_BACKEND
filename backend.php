@@ -7,14 +7,22 @@
 
 	<link href="<?php echo __ROOT_CSS . 'bootstrap.min.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'bootstrap-table.css'?>" rel="stylesheet">
-	<link href="<?php echo __ROOT_CSS . 'datepicker3.css'?>" rel="stylesheet">
 	<link href="<?php echo __ROOT_CSS . 'styles.css'?>" rel="stylesheet">
-
-	<!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
+	<link href="<?php echo __ROOT_CSS . 'jquery-ui.css'?>" rel="stylesheet">
+	<link href="<?php echo __ROOT_CSS . 'jquery-ui-timepicker-addon.css'?>" rel="stylesheet">
+	
+	<script src="<?php echo __ROOT_JS . 'jquery-2.1.3.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-filestyle.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
+    <script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
+   	<script src="<?php echo __ROOT_JS . 'jquery-ui.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'jquery-ui-timepicker-addon.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>	
+	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
 </head>
 
 <body>
@@ -131,33 +139,12 @@
 				</div>
 			</div>
 		</div><!--/.row-->
-
 		<div class="row">
-
 			<?php $registry->router->loader(); ?>
-			<?php
-
-			?>
-
-		</div><!--/.row-->
-
-	</div>	<!--/.main-->
-
-	<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap.min.js'?>"></script>
-	    <!-- bootbox code -->
-    <script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-datepicker.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>	
-	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
-
+		</div>
+	</div>
 	<script>
-		$('#calendar').datepicker({
-		});
+		$('#calendar').datepicker({});
 
 		!function ($) {
 		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){

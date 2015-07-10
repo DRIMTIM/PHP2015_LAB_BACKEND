@@ -84,19 +84,30 @@ class OfferModel extends AbstractModel{
     	$this->fromArray($_POST);
     	$data = $this->toArray();
     	
-    	if (is_uploaded_file($_FILES['imagen']['tmp_name'])){
-    		$nombreDirectorio = __APPLICATION_FILES_OFERTAS_FOLDER;
-    		$nombreFichero = $_FILES['imagen']['name'];
-    		$nombreCompleto = $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
-    		if (is_file($nombreCompleto)){
-    			$idUnico = time();
-    			$nombreFichero = $idUnico . GlobalConstants::$GUION . $nombreFichero;
-    		}
-    		move_uploaded_file($_FILES['imagen']['tmp_name'], $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero);
-    		$data['imagen'] = __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
+    	$imagenes = $_FILES['imagen'];
     	
-    	} else {
-    		return "No se ha podido subir el fichero";
+    	for($count = 0; $count < count($imagenes['tmp_name']); $count++){
+	    	if (is_uploaded_file($imagenes['tmp_name'][$count])){
+	    		$nombreDirectorio = __APPLICATION_FILES_OFERTAS_FOLDER;
+	    		$nombreFinalFichero = strtoupper(str_ireplace(GlobalConstants::$SPACE, GlobalConstants::$GUION_BAJO, $data['titulo'])) . 
+	    				GlobalConstants::$GUION_BAJO . 
+	    				strtoupper($data['tipo']) .
+	    				GlobalConstants::$OPEN_BRACKET . $count . GlobalConstants::$CLOSE_BRACKET . 
+	    				substr($imagenes['name'][$count], strripos($imagenes['name'][$count], GlobalConstants::$DOT));
+	    		$nombreCompleto = $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero;
+	    		if (is_file($nombreCompleto)){
+	    			$idUnico = time();
+	    			$nombreFinalFichero = $idUnico . GlobalConstants::$GUION . $nombreFinalFichero;
+	    		}
+	    		move_uploaded_file($imagenes['tmp_name'][$count], $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero);
+	    		if(empty($data['imagen'])){
+	    			$data['imagen'] = __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero;
+	    		}else{
+	    			$data['imagen'] = $data['imagen'] . GlobalConstants::$FILE_SEPARATOR_FLAG .  __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero;
+	    		}
+	    	} else {
+	    		return "No se ha podido subir el fichero";
+	    	}
     	}
 
         if($data['activa'] == 'on') {
