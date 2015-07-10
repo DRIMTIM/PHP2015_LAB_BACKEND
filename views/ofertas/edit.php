@@ -113,11 +113,6 @@
 
 <script>
 
-	$(document).ready(function(){
-		inicializarCalendars();
-		$(document).on("change", $("#combo-tipo-oferta"), cambiarForm);
-	});
-
 	function inicializarCalendars() {
 		var desde = $("#fecha-desde");
 		var hasta = $("#fecha-hasta");
