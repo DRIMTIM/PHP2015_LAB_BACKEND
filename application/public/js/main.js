@@ -212,7 +212,7 @@ $('#submitAdmin').click(function(){
 
 function activarDesactivarOfferById(id){	
 
-	bootbox.confirm("<b>Estas seguro que quiere desactivar la Oferta?</b>", function(result) {
+	bootbox.confirm("<b>Estas seguro que quiere Activa/Desactivar la Oferta?</b>", function(result) {
 		if(result){
 			console.log('activarDesactivarOfferById: ' + id);
 			$.ajax({
@@ -281,7 +281,7 @@ function renderOfferTable(data){
       							"onclick='activarDesactivarOfferById(" + offer["id"] + ")'" + "/>" + 
     						"</td>" +
 							"<td>" +
-								"<a href='/offer/getOferta?id='" + "(" + offer['id'] + ")'" + 
+								"<a href='/offer/getOferta?id='" + "(" + offer["id"] + ")'" + 
 									"style='cursor: pointer' >" +
 									"<span class='glyphicon glyphicon-edit'></span>" +
 								"</a>" +						
@@ -302,6 +302,7 @@ function renderOfferTable(data){
 
 	}else{
 
+		$('#offerTable > tbody').append("");		
 
 	}	
 
