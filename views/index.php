@@ -6,11 +6,11 @@
 		<div class="panel-body">
 			<table id="offerTable" data-toggle="table" data-show-refresh="true" 
 			data-show-toggle="true" data-show-columns="true" data-search="true" 
-			data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" 
+			data-select-item-name="toolbar1" data-pagination="true" 
 			data-sort-order="desc">
 			<thead>
 				<tr>
-					<th data-field="state" data-checkbox="true" >Activa</th>
+					<th data-field="state"><b>Activa</b></th>
 					<th ></th>
 					<th data-field="id" data-sortable="true"><b>ID</b></th>
 					<th data-field="name"  data-sortable="true"><b>Titulo</b></th>
@@ -25,9 +25,21 @@
 				<?php 
 				if(!empty($ofertas)){	
 					foreach ($ofertas as $oferta){ 
+
+						if($oferta['activa'] == 1){
+							$checked = " checked ";
+							$class = 'default';
+						}else{
+							$checked = "";
+							$class = 'danger';
+						}
 						?>
-					<tr>
-						<td >Check</td>
+					<tr class=<?php echo "'" . $class . "'";?>>
+						<td >    
+      						<input type='checkbox' <?php echo $checked;?>
+      								onclick="activarDesactivarOfferById
+      								(<?php echo $oferta["id"];?>)" />
+    					</td>
 						<td>
 							<a href="<?php echo __ROOT .  '/offer/getOferta?id=' 
 										. $oferta['id']?>" style="cursor: pointer" >

@@ -91,7 +91,13 @@ Class AjaxController extends BaseController {
 
 	public function borrarOferta(){
 		$this->ofertas_model->borrar($_GET['idOffer']);
-	}	
+	}
+
+	public function activar_desactivarOferta(){
+
+		$this->ofertas_model->activarDesactivar($_POST['idOffer']);
+
+	}
 	
 }
 

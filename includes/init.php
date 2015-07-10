@@ -4,8 +4,8 @@
  */
 define('__USER', '__USER_');
 
-// error_reporting(E_ALL);
-// ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
+//ini_set('display_errors', 'On');
 
 /**
  * * Defino la url root de la app **
@@ -89,5 +89,5 @@ $registry = new registry ();
  * * create the database registry object **
  */
 
-$registry->db = new MysqliDb ( 'localhost', 'root', 'chonabook', 'PHP_LAB' );
+$registry->db = new MysqliDb ( 'localhost', 'root', 'nachorevol', 'PHP_LAB' );
 ?>

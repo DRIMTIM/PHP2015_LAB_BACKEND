@@ -33,11 +33,26 @@ class OfferModel extends AbstractModel{
 
     public function onConstruct(){ }
 
-    public function obtener($idCat){
+    public function obtener($idOffer){
 
-        $oferta = $this->registry->db->where("id", $idCat)->get($this->table_name);
+        $oferta = $this->registry->db->where("id", $idOffer)->get($this->table_name);
         return $oferta[0];
     }
+
+    public function activarDesactivar($idOffer){
+
+        $oferta = $this->obtener($idOffer);
+        
+        if ($oferta['activa'] == 1) {
+            $activa = 0;
+        }else{
+            $activa = 1;
+        }
+
+        $sql = "UPDATE OFERTAS SET activa=" . $activa . " WHERE id=" . $idOffer;
+        $result = $this->registry->db->rawQuery($sql);
+
+    }    
 
     public function getAll(){
 
@@ -233,7 +248,7 @@ class OfferModel extends AbstractModel{
     }
 
     private function updateOfertaStock($id,$data) {
-        $this->registry->db->where('id', $id)->update($this->table_stock, $data);
+        $this->registry->dupdateOfertaStockb->where('id', $id)->update($this->table_stock, $data);
     }
 
     private function updateIdCategoriaOferta($id_oferta,$id_cat_nuevo) {

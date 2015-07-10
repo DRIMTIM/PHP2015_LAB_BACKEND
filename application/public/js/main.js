@@ -210,6 +210,24 @@ $('#submitAdmin').click(function(){
 /*          Ofertas             	  */
 /**************************************/
 
+function activarDesactivarOfferById(id){	
+
+	bootbox.confirm("<b>Estas seguro que quiere Activa/Desactivar la Oferta?</b>", function(result) {
+		if(result){
+			console.log('activarDesactivarOfferById: ' + id);
+			$.ajax({
+				type: 'POST',		
+				url: ajaxURL + '/' + 'activar_desactivarOferta',
+				data: {idOffer:id},
+				success: function(data){
+					console.log("activarDesactivarOfferById - Admin");
+					findAllOffers();
+				}				
+			});
+		}
+	});	
+
+}
 
 function deleteOfferById(id){	
 
@@ -247,31 +265,24 @@ function findAllOffers(){
 function renderOfferTable(data){
 
 	var list = data == null ? [] : (data instanceof Array ? data : [data]);
-	var theader = 
-				"<thead>" +
-					"<tr>" +
-						"<th data-field='state' data-checkbox='true' >Activa</th>" +
-						"<th ></th>" +
-						"<th data-field='id' data-sortable='true'><b>ID</b></th>" +
-						"<th data-field='name'  data-sortable='true'><b>Titulo</b></th>" +
-						"<th data-field='desc' data-sortable='true'><b>Descripcion</b></th>" +
-						"<th data-field='moneda' data-sortable='true'> <b>$ / $US</b></th>" +
-						"<th data-field='price' data-sortable='true'><b>Precio</b></th>" +
-						"<th ></th>" +
-					"</tr>" +
-				"</thead>";
 
 	if(list != null){
 		$('#offerTable > tbody').html("");
 		$.each(list, function(index, offer) {
 
-			//var clase = (index % 2 === 0) ? clase = 'info' : 'default';	
+			var checked = offer["activa"] == 1 ? checked = " checked " : "";
+			var clase = offer["activa"] == 1 ? clase = " 'default' " : " 'danger' ";
+
 
 			$('#offerTable > tbody')
-				.append("<tr>" +
-							"<td >Check</td>" +
+				.append("<tr class=" + clase + ">" +
+							"<td>" +    
+      							"<input type='checkbox'" + checked + 
+      							"onclick='activarDesactivarOfferById(" + offer["id"] + ")'" + "/>" + 
+    						"</td>" +
 							"<td>" +
-								"<a href='/offer/getOferta?id=' style='cursor: pointer' >" +
+								"<a href='/offer/getOferta?id='" + "(" + offer["id"] + ")'" + 
+									"style='cursor: pointer' >" +
 									"<span class='glyphicon glyphicon-edit'></span>" +
 								"</a>" +						
 							"</td>" +					
@@ -291,6 +302,7 @@ function renderOfferTable(data){
 
 	}else{
 
+		$('#offerTable > tbody').append("");		
 
 	}	
 

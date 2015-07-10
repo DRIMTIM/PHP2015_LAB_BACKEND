@@ -91,3 +91,32 @@ INSERT INTO USUARIOS (nick, nombre, apellido, email, fechaNac,
 						timeZone, celular, password, edad) 
 VALUES ("resorry","Redis", "Culp Ame", "redisculpame@gmail.com", "1975-10-28 00:00:00", "URU", "097744774",
 		MD5("popi"), "55");
+
+
+/* COMPRAS */
+/* USUARIO  1 */
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (3,1,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (1,1,"jjsdljsdjlsjdlj");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (2,1,"sscscscscscscsc");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (7,1,"ewewewewewewewe");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (10,1,"ttytytytytytyt");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (8,1,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (8,1,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (8,1,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (3,1,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (1,1,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (3,1,"ahlasdlasldhals");
+
+
+/* USUARIO  2 */
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (3,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (1,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (2,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (8,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (10,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (8,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (7,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (7,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (7,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (10,2,"ahlasdlasldhals");
+INSERT INTO `COMPRAS`(`id_oferta`, `id_usuario`, `ticket`) VALUES (10,2,"ahlasdlasldhals");

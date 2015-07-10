@@ -65,8 +65,8 @@
 			<li class="active"><a href="<?php echo __ROOT ?>"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
 			<li><a href="<?php echo __ROOT . "/category"?>"><span class="glyphicon glyphicon-tags"></span> Categorias</a></li>
 			<li><a href="<?php echo __ROOT . "/offer/alta"?>"><span class="glyphicon glyphicon-shopping-cart"></span> Ofertas</a></li>
-			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Productos</a></li>
-			<li><a href="forms.html"><span class="glyphicon glyphicon-stats"></span> Estadisticas</a></li>
+			<!--<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Productos</a></li>-->
+			<li><a href="<?php echo __ROOT . "/chart"?>"><span class="glyphicon glyphicon-stats"></span> Estadisticas</a></li>
 			<li><a href="panels.html"><span class="glyphicon glyphicon-cog"></span> Configuracion	</a></li>
 			<li role="presentation" class="divider"></li>
 		</ul>
