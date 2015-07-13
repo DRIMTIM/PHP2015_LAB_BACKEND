@@ -1,9 +1,6 @@
-
 <script src="<?php echo __ROOT_JS . 'chart-data.js'?>"></script>
 <script>
-	
 	pieData = <?php echo $dataPieChart; ?>; 
-	
 </script>
 
 <div class="col-md-6">

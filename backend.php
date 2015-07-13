@@ -17,12 +17,7 @@
     <script src="<?php echo __ROOT_JS . 'bootbox.js'?>"></script>
    	<script src="<?php echo __ROOT_JS . 'jquery-ui.js'?>"></script>
 	<script src="<?php echo __ROOT_JS . 'jquery-ui-timepicker-addon.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>	
-	<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'easypiechart-data.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
-	<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
+	<script src="<?php echo __ROOT_JS . 'bootstrap-table.js'?>"></script>
 </head>
 
 <body>
@@ -143,23 +138,8 @@
 			<?php $registry->router->loader(); ?>
 		</div>
 	</div>
-	<script>
-		$('#calendar').datepicker({});
-
-		!function ($) {
-		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
-		        $(this).find('em:first').toggleClass("glyphicon-minus");
-		    });
-		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		}(window.jQuery);
-
-		$(window).on('resize', function () {
-		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		})
-		$(window).on('resize', function () {
-		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		})
-	</script>
 </body>
-
+<script src="<?php echo __ROOT_JS . 'chart.min.js'?>"></script>
+<script src="<?php echo __ROOT_JS . 'app.js'?>"></script>
+<script src="<?php echo __ROOT_JS . 'main.js'?>"></script>
 </html>

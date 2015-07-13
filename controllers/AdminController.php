@@ -9,7 +9,7 @@ class AdminController extends baseController {
 	}
 
 	public function index() {
-		$admin = $this->getAdmin('pelupotter@gmail.com');
+		$admin = $this->getAdmin('jonaf2103@gmail.com');
 		$this->registry->template->admin = $admin;
         $this->registry->template->show('admin/index');
 	}

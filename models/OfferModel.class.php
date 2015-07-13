@@ -174,6 +174,8 @@ class OfferModel extends AbstractModel{
         if(!empty(trim($errors))) {
             return $errors;
         }
+        $ofertas[0]["fecha_inicio"] = GenericUtils::getInstance()->getFormatDateOutForOffer($ofertas[0]["fecha_inicio"]);
+        $ofertas[0]["fecha_fin"] = GenericUtils::getInstance()->getFormatDateOutForOffer($ofertas[0]["fecha_fin"]);
         return $ofertas[0];
     }
 
@@ -185,32 +187,34 @@ class OfferModel extends AbstractModel{
         $id_categoria = $data['id_categoria'];
         $id = $data['id'];
 
-        $fecha_fin = $data['fecha_fin'];
-        $fecha_inicio = $data['fecha_fin'];
+        $fecha_fin = GenericUtils::getInstance()->getFormatDateIn($data['fecha_fin']);
+        $fecha_inicio = GenericUtils::getInstance()->getFormatDateIn($data['fecha_inicio']);
         $stock = $data['stock'];
         $activa = $data['activa'];
         
-        if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name']))
-        {
-            unset($data['imagen']);
-        }
-        else
-        {
-		
-        	if (is_uploaded_file($_FILES['imagen']['tmp_name'])){
-        		$nombreDirectorio = __APPLICATION_FILES_OFERTAS_FOLDER;
-        		$nombreFichero = $_FILES['imagen']['name'];
-        		$nombreCompleto = $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
-        		if (is_file($nombreCompleto)){
-        			$idUnico = time();
-        			$nombreFichero = $idUnico . GlobalConstants::$GUION . $nombreFichero;
-        		}
-        		move_uploaded_file($_FILES['imagen']['tmp_name'], $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero);
-        		$data['imagen'] = __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFichero;
-        	
-        	}
-        
-        }
+    	$imagenes = $_FILES['imagen'];
+    	
+    	for($count = 0; $count < count($imagenes['tmp_name']); $count++){
+	    	if (is_uploaded_file($imagenes['tmp_name'][$count])){
+	    		$nombreDirectorio = __APPLICATION_FILES_OFERTAS_FOLDER;
+	    		$nombreFinalFichero = strtoupper(str_ireplace(GlobalConstants::$SPACE, GlobalConstants::$GUION_BAJO, $data['titulo'])) . 
+	    				GlobalConstants::$GUION_BAJO . 
+	    				strtoupper($data['tipo']) .
+	    				GlobalConstants::$OPEN_BRACKET . $count . GlobalConstants::$CLOSE_BRACKET . 
+	    				substr($imagenes['name'][$count], strripos($imagenes['name'][$count], GlobalConstants::$DOT));
+	    		$nombreCompleto = $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero;
+	    		if (is_file($nombreCompleto)){
+	    			$idUnico = time();
+	    			$nombreFinalFichero = $idUnico . GlobalConstants::$GUION . $nombreFinalFichero;
+	    		}
+	    		move_uploaded_file($imagenes['tmp_name'][$count], $nombreDirectorio . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero);
+	    		if(empty($data['imagen'])){
+	    			$data['imagen'] = __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero;
+	    		}else{
+	    			$data['imagen'] = $data['imagen'] . GlobalConstants::$FILE_SEPARATOR_FLAG .  __APPLICATION_FILES_OFERTAS_FOLDER_SERVER . GlobalConstants::$FOLDER_SEPARATOR . $nombreFinalFichero;
+	    		}
+	    	}
+    	}
 
         if($activa == 'on') {
             $data['activa'] = true;
@@ -257,8 +261,8 @@ class OfferModel extends AbstractModel{
 
     private function insertarOfertaTemporal($id_categoria, $data) {
 
-        $fecha_inicio = $this->fecha_inicio;
-        $fecha_fin = $this->fecha_fin;
+       	$this->fecha_inicio = $data['fecha_inicio'];
+       	$this->fecha_fin = $data['fecha_fin'];
 
         unset($data['fecha_inicio']);
         unset($data['fecha_fin']);

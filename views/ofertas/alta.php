@@ -1,10 +1,9 @@
-<form role="form" action="<?php echo __ROOT . "/offer/crearOferta"?>" method="post" enctype="multipart/form-data">
-		<div class="panel panel-default col-md-9 col-md-offset-1">
-  		  	<div class="panel-heading">
-    			<h2 class="panel-title">Alta de Oferta</h2>
+<div class="col-lg-12">
+<form action="<?php echo __ROOT . "/offer/crearOferta"?>" method="post" class="panel panel-info" enctype="multipart/form-data">
+  		  	<div class="panel-heading dark-overlay">
+    			<h2 class="panel-title">Registro de Ofertas</h2>
   			</div>
 			<div class="panel-body">
-				<div clas="row">
 					<div class="col-md-4 col-md-offset-1">
 						<div class="form-group">
 							<label for="titulo-oferta">Título:</label>
@@ -79,7 +78,6 @@
 					    </label>
 					</div>
 				</div>
-			</div>
 			<button type="submit" class="btn btn-default" style="width: 100%;">Crear Oferta</button>
 		</div>
 		<?php if(count($errores) > 0){ ?>
@@ -87,8 +85,8 @@
 				<?php foreach ($errores as $error){echo $error;}?>
 			</div>
 		<?php } ?>
-	</div>
 </form>
+</div>
 <script>
 
 	$(document).ready(function(){

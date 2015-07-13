@@ -1,5 +1,4 @@
 <!-- Formulario de Ofertas -->
-
 <div class="col-sm-offset-2 col-md-7">
 	<div class="panel panel-info">
 		<div class="panel-heading dark-overlay">
@@ -39,10 +38,10 @@
 			</div>
 			<div class="form-group">
 				<label for="imagen-oferta">Imagen:</label>
-				<input type="file" class="filestyle" name="imagen"
-				data-buttonName="btn-primary"
-				data-iconName="glyphicon-inbox" data-buttonBefore="true"
-				data-buttonText="Subir Imagen ..." accept=".jpg,.jpeg" >
+				<input type="file" class="filestyle" name="imagen[]" data-buttonName="btn-primary"
+					data-iconName="glyphicon-inbox" data-buttonBefore="true"
+					data-buttonText="Subir Imagen ..." accept="<?php echo GlobalConstants::$FILE_SUPPORT_EXT; ?>"
+					multiple="multiple">
 			</div>
 
 			<div class="form-group">
@@ -77,23 +76,19 @@
 					?>
 				</select>
 			</div>
-			<?php if($oferta['stock'] != NULL) {
-			echo '<div class="form-group" id="container-ofertas-stock">'
-				.'<label for="precio-oferta">Cantidad de Stock:</label>'
-				.'<input type="number" id="stock" name="stock" value="'.$oferta['stock'].'" class="form-control" min="1">'
-				.'</div>';
-			}
-			?>
-			<?php
-			if($oferta['fecha_inicio'] != NULL) {
-			echo '<div class="form-group" id="container-ofertas-temporales">'
-				.'<label for="fecha-desde">Desde:</label>'
-				.'<input type="text" name="fecha_inicio" value="'.$oferta['fecha_inicio'].'" class="form-control" id="fecha-desde">'
-				.'<label for="fecha-hasta">Hasta:</label>'
-				.'<input type="text" name="fecha_fin" value="'.$oferta['fecha_fin'].'" class="form-control" id="fecha-hasta">'
-			.'</div>';
-			}
-			?>
+			<?php if($oferta['stock'] != NULL) { ?>
+				<div class="form-group" id="container-ofertas-stock">
+					<label for="precio-oferta">Cantidad de Stock:</label>
+					<input type="number" id="stock" name="stock" value="<?php echo $oferta['stock']; ?>" class="form-control" min="1">
+				</div>
+			<?php } if($oferta['fecha_inicio'] != NULL) { ?>
+				<div class="form-group" id="container-ofertas-temporales">
+					<label for="fecha-desde">Desde:</label>
+					<input type="text" name="fecha_inicio" value="<?php echo $oferta['fecha_inicio']; ?>" class="form-control" id="fecha-desde">
+					<label for="fecha-hasta">Hasta:</label>'
+					<input type="text" name="fecha_fin" value="<?php echo $oferta['fecha_fin']; ?>" class="form-control" id="fecha-hasta">
+				</div>
+			<?php } ?>
 			<div class="panel-footer divider">
 				<div class="checkbox">
 					<label>
@@ -107,12 +102,14 @@
 		</div>
 	</div>
 </div>
-
-<script src="<?php echo __ROOT_JS . 'jquery-1.11.1.min.js'?>"></script>
-<script src="<?php echo __ROOT_JS . 'bootstrap-filestyle.min.js'?>"></script>
-
 <script>
 
+	$(document).ready(function(){
+		inicializarCalendars();
+		$("#fecha-desde").text($("#fecha-desde").val());
+		$("#fecha-hasta").text($("#fecha-hasta").val());
+	});
+			
 	function inicializarCalendars() {
 		var desde = $("#fecha-desde");
 		var hasta = $("#fecha-hasta");
@@ -123,11 +120,17 @@
 	}
 
 	function inicializarCalendar(input) {
-		input.datepicker({
+		input.datetimepicker({
 			changeYear: true,
 			changeMonth: true,
 			currentText: "Ahora",
+			closeText: "Listo",
+			timeText: "Tiempo",
+			hourText: "Hora",
+			minuteText: "Minuto",
+			secondText: "Segundo",
 			dateFormat: "<?php echo GlobalConstants::$jqueryDateFormat; ?>",
+			timeFormat: "<?php echo GlobalConstants::$jqueryTimeFormat; ?>",
 			autoSize: true,
 			firstDay: 1,
 			dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ],
